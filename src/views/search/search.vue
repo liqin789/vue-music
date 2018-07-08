@@ -1,22 +1,20 @@
 <template>
     <div>
-       {{msg}}
+        this is search page
     </div>
 </template>
 <script>
 export default {
     data(){
         return {
-            msg:'this is a bar'
-        }
-    },
-    methods:{
 
+        }
     }
 }
 </script>
 <style>
- 
+
+
 </style>
 
 
