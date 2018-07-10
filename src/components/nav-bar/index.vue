@@ -4,6 +4,9 @@
     </div>
 </template>
 <script>
+import {routes} from "@/router/routes.js"
+
+console.log(routes)
 export default {
     data(){
         return {
