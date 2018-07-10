@@ -2,7 +2,7 @@
   <div id="app">
     <mt-header fixed class="kugou-header">
         <router-link class="logo" to="/" slot="left">
-            <img  style="height:5vh" src="http://m.kugou.com/v3/static/images/index/logo.png" />
+            <img  style="height:5vh;display:none" src="http://m.kugou.com/v3/static/images/index/logo.png" />
         </router-link>
         <mt-button @click.native="gotoSearch" icon="search" slot="right"></mt-button>
     </mt-header>

@@ -1,16 +1,22 @@
 <template>
     <div>
-       {{msg}}
+        <mt-navbar v-model="selected">
+            <mt-tab-item :id="index" v-for="(item,index) in routes" :key="item.path">
+                   <router-link :to="item.path">
+                        {{item.title}}
+                    </router-link>
+            </mt-tab-item>
+        </mt-navbar>
     </div>
 </template>
 <script>
 import {routes} from "@/router/routes.js"
-
-console.log(routes)
+//使用路由导航的形式进行路由的跳转 :绑定动态的属性 @绑定事件 v-model:select绑定元素的id 
 export default {
     data(){
         return {
-            msg:'this is a bar'
+            selected:0,
+            routes,
         }
     },
     methods:{
@@ -18,8 +24,10 @@ export default {
     }
 }
 </script>
-<style>
- 
+<style scoped>
+    a {
+      text-decoration:none
+    }
 </style>
 
 

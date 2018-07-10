@@ -1,13 +1,14 @@
 <template>
     <div>
-        this is a new song
+        <span>数量</span>
+        <span>{{count}}</span>
     </div>
 </template>
 <script>
 export default {
     data(){
         return {
-
+            count:this.$store.state.count
         }
     }
 }

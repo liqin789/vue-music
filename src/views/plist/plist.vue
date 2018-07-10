@@ -1,14 +1,20 @@
 <template>
     <div>
-        this is a new plist
+        <input type="button" value="+" @click="addNum">
     </div>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 export default {
     data(){
         return{
             
         }
+    },
+    methods:{
+        ...mapMutations({
+            addNum:'increment'
+        })
     }
 }
 </script>
