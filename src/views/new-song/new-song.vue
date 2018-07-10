@@ -5,11 +5,17 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     data(){
         return {
-            count:this.$store.state.count
+            //count:this.$store.state.count
         }
+    },
+    computed:{
+        ...mapState({
+            count:"count"
+        })
     }
 }
 </script>
