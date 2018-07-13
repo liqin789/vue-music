@@ -10,6 +10,12 @@ import store from "./store/index"
 import 'mint-ui/lib/style.css'; 
 Vue.use(Mint)
 
+
+import 'vue-tree-halower/dist/halower-tree.min.css' // you can customize the style of the tree
+import VTree from 'vue-tree-halower'
+
+Vue.use(VTree)
+
 Vue.config.productionTip = false
 
 
