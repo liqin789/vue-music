@@ -8,18 +8,12 @@
               :data='treeData' 
               :multiple='true' 
               @node-click="getSelectedNodes"
-              @node-check="getSelectedNodes"
+              
+              @node-check="getCheckedNodes2"
               :halfcheck='true'
           />
 
-            <v-tree ref='tree' 
-              :data='treeData2' 
-              :multiple='true' 
-              @node-click="getSelectedNodes"
-              @node-check="getSelectedNodes"
-              :halfcheck='true'
-          />
-      
+         
     </div>
 </template>
 <script>
@@ -95,15 +89,22 @@ export default {
     methods:{
         getSelectedNodes(val){
            console.log(val)
+
         },
+        getCheckedNodes2(obj,bool){
+          //alert("ok")
+          console.log(obj)
+          console.log(bool)
+        },
+        getNodes(val){
+          console.log(val)
+        }
 
     }
 }
 </script>
 <style>
-.halo-tree .inputCheck{
-  display: none
-}
+
 .a{
   border: 1px solid #e3e8f1;
 }
