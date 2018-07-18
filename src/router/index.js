@@ -6,6 +6,14 @@ Vue.use(Router)
 
 export default new Router({
   mode:'history',
+  scrollBehavior (to, from, savedPosition) {
+    // return 期望滚动到哪个的位置 元素的滚动的行为
+    if(savedPosition){
+      return savedPosition
+    }else{
+      return {x:0,y:0}
+    }
+  },
   routes: [
      ...routes,
     {
