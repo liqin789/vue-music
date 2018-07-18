@@ -7,6 +7,11 @@ import Mint from 'mint-ui'
 
 import store from "./store/index"
 
+
+import axios from 'axios'
+
+Vue.prototype.$http = axios
+
 import 'mint-ui/lib/style.css'; 
 Vue.use(Mint)
 
