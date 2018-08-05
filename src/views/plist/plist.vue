@@ -6,7 +6,7 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
-
+import {getCookie,removeCookie} from "@/utils/index.js"
 export default {
     data(){
         return{
@@ -27,6 +27,11 @@ export default {
             },function(res){
 
             })
+        }
+    },
+    mounted(){
+        if(getCookie("username")){
+            removeCookie('username')
         }
     }
 }
