@@ -6,3 +6,4 @@
 export const increment =({commit},data) =>{
    commit('increment',data)
 }
+

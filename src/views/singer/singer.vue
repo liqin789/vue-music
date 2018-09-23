@@ -1,6 +1,6 @@
 <template>
     <div>
-       <input type="button" value="+带数据数据" @click="add" >
+       <input type="button" value="+带数据数据" @click="add(5)" >
        <hr/>
        <input type="button" value="+默认加1提交" @click="increment">
        <br/>
@@ -18,11 +18,27 @@ export default {
     },
     methods:{//mapActions
         ...mapActions(['increment']),
-        //action提交额外数据的时候需要手动调用
-        add(){
-           this.$store.dispatch("increment",{
-             n:2
-           })
+        //在此处的时候。increasement相当于是一个函数
+
+        //action提交额外数据的时候需要手动调用  mapAction提交数据的时候，需要可以进行传递参数的形式
+
+            //mapaction相当于是一个函数 可以相互的调用
+
+
+      ...mapActions([
+          "increment"
+      ]),
+
+    
+
+        add(num){
+          this.increment({
+              n:num
+          })
+
+        //    this.$store.dispatch("increment",{
+        //      n:num
+        //    })
         }
     },
      computed:{
