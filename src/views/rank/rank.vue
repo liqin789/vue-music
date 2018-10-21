@@ -40,7 +40,7 @@ export default {
         setCookie("username","liqin");
         // 缓存指针
         let _this = this;
-        let page =1;
+        let page =1;//
         let totalPage = 5;
         // 设置一个开关来避免重负请求数据
         let sw = true;
