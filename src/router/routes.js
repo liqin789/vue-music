@@ -4,6 +4,7 @@ let NewSong = ()=>import('@/views/new-song/new-song')//新歌
 let Plist = ()=>import('@/views/plist/plist')//歌单
 let Singer = ()=>import('@/views/singer/singer')//歌手
 let Rank = ()=>import('@/views/rank/rank')//歌手
+let Plan = ()=>import('@/views/plan/addPlan')//计划
 
 
 export let routes = [
@@ -42,6 +43,15 @@ export let routes = [
           navbar:NavBar,
           default:Rank
         }
-    }
+    },
+    {
+      path:'/Plan',
+      title:'计划',
+      name:'Plan',
+      components:{
+        navbar:NavBar,
+        default:Plan
+      }
+  }
     
 ]

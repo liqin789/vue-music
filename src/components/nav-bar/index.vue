@@ -2,6 +2,7 @@
     <div>
         <mt-navbar v-model="selected">
             <mt-tab-item :id="index" 
+                style="cursor: pointer;"
                 @click.native="linkFn(item.path)" 
                 v-for="(item,index) in routes" 
                 :key="item.path">
