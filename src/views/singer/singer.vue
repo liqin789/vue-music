@@ -7,8 +7,10 @@
        <span>当前的值：{{count}}</span>
        <hr/>
 
-       <el-button type="success" @click="downloadFn1">excel文件的下载1</el-button>
-       <el-button type="success" @click="downloadFn2">excel文件的下载2</el-button>
+       <el-button type="success" @click="downloadFn1">excel文件的下载</el-button>
+       <el-button type="success" @click="uploadFn2">excel文件的上传</el-button>
+
+       <input id="upload" style="visibility: hidden;"  type="file" ref="uploadExcel" @change="importfn($event)"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 
     </div>
 </template>
@@ -49,11 +51,78 @@ export default {
         //      n:num
         //    })
 
-        downloadFn1(){
+        importfn(event) {
+           // console.log(event.currentTarget.files[0])
+            let _this = this;
+            let inputDOM = this.$refs.inputer;
+            // 通过DOM取文件数据
+            this.file = event.currentTarget.files[0];
+            var rABS = false; //是否将文件读取为二进制字符串
+            var f = this.file;
+            var reader = new FileReader();
+            //if (!FileReader.prototype.readAsBinaryString) {
+            FileReader.prototype.readAsBinaryString = function(f) {
+                    var binary = "";
+                    var rABS = false; //是否将文件读取为二进制字符串
+                    var pt = this;
+                    var wb; //读取完成的数据
+                    var outdata;
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var bytes = new Uint8Array(reader.result);
+                        var length = bytes.byteLength;
+                        for(var i = 0; i < length; i++) {
+                            binary += String.fromCharCode(bytes[i]);
+                        }
+                        var XLSX = require('xlsx');
+                        if(rABS) {
+                            wb = XLSX.read(btoa(fixdata(binary)), { //手动转化
+                                type: 'base64'
+                            });
+                        } else {
+                            wb = XLSX.read(binary, {
+                                type: 'binary'
+                            });
+                        }
+                        outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+                        console.log(outdata)
+                        //outdata就是你想要的东西<br>　　
+                        //let importList = _this.dateTransition(outdata);
+                    }
+                    reader.readAsArrayBuffer(f);
+                }
+                if(rABS) {
+                    reader.readAsArrayBuffer(f);
+                } else {
+                    reader.readAsBinaryString(f);
+                }
+        },
+
+         //将对应的中文key转化为自己想要的英文key
+         dateTransition(outdata) {
+            　　let list = [];
+            　　var obj = {};
+            　　for(var i = 0; i < outdata.length; i++) {
+            　　　　obj = {};
+            　　　　for(var key in outdata[i]) {
+            　　　　　　if(key == '工号') {
+            　　　　　　　　obj['jobNumber'] = outdata[i][key];
+            　　　　　　} else if(key == '姓名') {
+            　　　　　　　　obj['name'] = outdata[i][key];
+            　　　　　　} else if(key == '部门') {
+            　　　　　　　　obj['department'] = outdata[i][key];
+            　　　　　　}
+            　　　　}
+            　　　　list.push(obj);
+            　　}
+            　　return list;
+         },
+
+         downloadFn1(){
             this.params.down = 1;
             this.$http({
                 method: "get",
-              //  url: "/api/datatemp-show",
+                //  url: "/api/datatemp-show",
                 url: `http://localhost:8089/static/down1.json`,
                 data: this.params
             }).then(
@@ -146,9 +215,10 @@ export default {
             );
         },
 
-        //第二种下载方式
-        downloadFn2(){
-
+        //文件上传方式
+        uploadFn2(){
+          //console.log(this.$refs.uploadExcel) 
+           this.$refs.uploadExcel.click();//一个元素触发另一个元素的点击
         },
 
     },
