@@ -13,15 +13,35 @@
               :halfcheck='true'
           />
 
+          <br/>
+
+          <h2>promise的异步回调的使用使用场景，元素的下拉的，编辑的时候，需要显示默认的下拉的值，
+            <br/>
+            然而ajax是异步的程序并不知道，请求下拉数据和请求编辑参数的先后</h2>
+
+           <el-select v-model="value" placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+
+
          
     </div>
 </template>
 <script>
 import { mapState } from 'vuex'
+import { setTimeout } from 'timers';
 export default {
     data(){
         return {
-              searchword: '',
+        value:'',
+        options: [],
+
+        searchword: '',
               treeData: [
                 {
                   title: 'node1',
@@ -81,15 +101,59 @@ export default {
               }]
         }
     },
+    mounted(){
+       //使用promise 控制程序的执行的步骤
+        let p = new Promise((res,rej)=>{
+             res();
+            //rej("1223")
+        })
+        p.then(()=>{//res
+           // console.log("1",val)
+           this.getSelectData();//先获得下拉数据，然后得到默认的值进行渲染
+
+        }).then((val)=>{
+            //console.log("2",val)
+            this.getEditInfo();//得到实际的值进行渲染
+        }).catch(()=>{//rej
+           console.log("error");
+        })
+        // setTimeout(()=>{
+        //     this.getEditInfo();
+        // },1000);
+
+        // setTimeout(()=>{
+        //     this.getSelectData();
+        // },2000)
+    },
     computed:{
         ...mapState({
             count:"count"
         })
     },
     methods:{
+        getEditInfo(){//获得编辑信息
+            console.log("seconed")
+            this.value = 2
+        },
+        getSelectData(){//获得下拉数据
+            console.log("first")
+            this.options =[
+                {
+                  value: 1,
+                  label: '篮球'
+                },
+                {
+                  value: 2,
+                  label: '足球'
+                },
+                {
+                  value: 3,
+                  label: '排球'
+                }
+            ]
+        },
         getSelectedNodes(val){
            console.log(val)
-
         },
         getCheckedNodes2(obj,bool){
           //alert("ok")
