@@ -6,7 +6,6 @@
        <br/>
        <span>当前的值：{{count}}</span>
        <hr/>
-
        <el-button type="success" @click="downloadFn1">excel文件的下载</el-button>
        <el-button type="success" @click="uploadFn2">excel文件的上传</el-button>
 
