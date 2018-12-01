@@ -102,28 +102,10 @@ export default {
         }
     },
     mounted(){
-       //使用promise 控制程序的执行的步骤
-        let p = new Promise((res,rej)=>{
-             res();
-            //rej("1223")
+       //使用promise 控制程序的执行的步骤  
+        this.getSelectData().then((data)=>{
+             this.getEditInfo();
         })
-        p.then(()=>{//res
-           // console.log("1",val)
-           this.getSelectData();//先获得下拉数据，然后得到默认的值进行渲染
-
-        }).then((val)=>{
-            //console.log("2",val)
-            this.getEditInfo();//得到实际的值进行渲染
-        }).catch(()=>{//rej
-           console.log("error");
-        })
-        // setTimeout(()=>{
-        //     this.getEditInfo();
-        // },1000);
-
-        // setTimeout(()=>{
-        //     this.getSelectData();
-        // },2000)
     },
     computed:{
         ...mapState({
@@ -133,24 +115,33 @@ export default {
     methods:{
         getEditInfo(){//获得编辑信息
             console.log("seconed")
-            this.value = 2
+            setTimeout(()=>{
+                 this.value = 3
+            },500)
         },
-        getSelectData(){//获得下拉数据
+        getSelectData(){//获得下拉数据,放到promise的resolve的里面
             console.log("first")
-            this.options =[
-                {
-                  value: 1,
-                  label: '篮球'
-                },
-                {
-                  value: 2,
-                  label: '足球'
-                },
-                {
-                  value: 3,
-                  label: '排球'
-                }
-            ]
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{//使用settimeout模拟ajax请求数据
+                           let data = [
+                                {
+                                  value: 1,
+                                  label: '篮球'
+                                },
+                                {
+                                  value: 2,
+                                  label: '足球'
+                                },
+                                {
+                                  value: 3,
+                                  label: '排球'
+                                }
+                            ]
+                           this.options =data;
+                           resolve(data)
+                },1000)
+            })
+            
         },
         getSelectedNodes(val){
            console.log(val)
