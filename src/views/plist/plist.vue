@@ -12,24 +12,20 @@
         <chrome-picker v-model="colors" /> -->
 
 
-       <div class="demo-item">
-           <div>
-                 <div class="setColor">
+       <div class="demo-item" >
+                 <div class="setColor"  ref="userInfo">
                       <span @click="showColor">⬇️</span >
-                      <photoshop-picker v-show="isShowColor" style="position:absolute" 
+                      <photoshop-picker v-show="isShowColor" 
+                      ref="colorPicker" class="colorPicker" style="position:absolute" 
                        v-model="colors"
-                       @ok="onOk" @cancel="onCancel"></photoshop-picker>
-
+                       @ok="onOk" @cancel="onCancel">
+                       </photoshop-picker>
                 </div>
 
                 <div class="con" :style="getColor" ref="con">
-                        改变字体颜色的部分
+                        点击左侧图标改变字体颜色的部分
                 </div>
-           </div>
           
-
-        
-         
       </div>
 
     
@@ -62,16 +58,16 @@ export default {
         'photoshop-picker': Photoshop
     },
     methods:{
+ 
         showColor(){
             this.isShowColor =!this.isShowColor
         },
         onOk(){
-            console.log(this.colors.hex)
             this.$refs.con.style.color = this.colors.hex;//分为实时监控和点击的监控
             this.isShowColor = false;
         },
         onCancel(){
-                console.log('onCancel')
+            this.isShowColor = false;
         },
     
         ...mapMutations({
@@ -93,7 +89,6 @@ export default {
         getColor(){
             return {
                  //color: this.colors.hex,
-                
             }
         }
     },
@@ -101,6 +96,13 @@ export default {
         if(getCookie("username")){
             removeCookie('username')
         }
+        let _this = this;
+        document.addEventListener("click",function(e){//点击空白处隐藏
+            if(!!_this.$refs.userInfo.contains(e.target)) return;
+            _this.isShowColor  = false;
+        })
+        
+        
     }
 }
 </script>
