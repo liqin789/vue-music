@@ -2,74 +2,78 @@
     <div>
         <input type="button" value="+" @click="addNum">
         <mt-button size="small" @click.native="getData">small</mt-button>
+        <hr>
 
-            <hr>
-           <select v-model="obj.selected" v-for="obj in selectedArr" @change="select">
-                <option v-for="item in obj.optionArr" :value="item.value">{{item.text}}</option>
-            </select>
-            <p>selectedArr: {{ selectedArr }}</p>
+        <!-- <material-picker v-model="colors" />
+        <compact-picker v-model="colors" />
+        <swatches-picker v-model="colors" />
+        <slider-picker v-model="colors" />
+        <sketch-picker v-model="colors" />
+        <chrome-picker v-model="colors" /> -->
+
+
+       <div class="demo-item">
+           <div>
+                 <div class="setColor">
+                      <span @click="showColor">⬇️</span >
+                      <photoshop-picker v-show="isShowColor" style="position:absolute" 
+                       v-model="colors"
+                       @ok="onOk" @cancel="onCancel"></photoshop-picker>
+
+                </div>
+
+                <div class="con" :style="getColor" ref="con">
+                        改变字体颜色的部分
+                </div>
+           </div>
+          
+
+        
+         
+      </div>
+
+    
+            
 
     </div>
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import { Material,Compact ,Swatches,Slider,Sketch,Chrome,Photoshop} from 'vue-color'
+
+
 import {getCookie,removeCookie} from "@/utils/index.js"
 export default {
     data(){
         return{
-     
-                  selectedArr: [
-                        {
-                            selected:'a0',
-                            optionArr:[
-                                { text: '10', value: 'a0' },
-                                { text: '20', value: 'b0' },
-                                { text: '30', value: 'c0' }]
-                        }
-                      
-                      ]
+             colors : '#194d33',
+             isShowColor:false,
+                
         
         }
     },
+    components:{
+        'material-picker': Material,
+        'compact-picker': Compact,
+        'swatches-picker': Swatches,
+        'slider-picker': Slider,
+        'sketch-picker': Sketch,
+        'chrome-picker': Chrome,
+        'photoshop-picker': Photoshop
+    },
     methods:{
-          select:function(e){
-            var current = e.target.value;//获取选中值
-            var currentIndex = this.getCurrentIndex(current)+1;//获取当前层级
-            this.removeSelected(currentIndex);
-            this.addSelected(currentIndex);
-          },
-
-
-          //获取当前选中层级
-            getCurrentIndex:function(value){
-                for(var i=0;i<this.selectedArr.length;i++){
-                    for(var j=0;j<this.selectedArr[i].optionArr.length;j++){
-                    if(this.selectedArr[i].optionArr[j].value === value){
-                        return i
-                    }
-                    }
-                }
-            },
-            //去除当前选中层级之后的级数
-            removeSelected:function(index){
-                if( index < this.selectedArr.length ){
-                    this.selectedArr.splice(index,this.selectedArr.length)
-                }
-            },
-
-            //模拟添加下一级
-            addSelected:function(index){
-                this.selectedArr.push({
-                    selected:'a'+index,
-                    optionArr:[
-                    { text: '1'+index, value: 'a'+index },
-                    { text: '2'+index, value: 'b'+index },
-                    { text: '3'+index, value: 'c'+index }
-                    ]
-                })
-            },
-
-
+        showColor(){
+            this.isShowColor =!this.isShowColor
+        },
+        onOk(){
+            console.log(this.colors.hex)
+            this.$refs.con.style.color = this.colors.hex;//分为实时监控和点击的监控
+            this.isShowColor = false;
+        },
+        onCancel(){
+                console.log('onCancel')
+        },
+    
         ...mapMutations({
             addNum:'increment'
         }),
@@ -85,6 +89,14 @@ export default {
             })
         }
     },
+    computed:{
+        getColor(){
+            return {
+                 //color: this.colors.hex,
+                
+            }
+        }
+    },
     mounted(){
         if(getCookie("username")){
             removeCookie('username')
@@ -93,6 +105,25 @@ export default {
 }
 </script>
 <style>
+.setColor{
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    background-color: #ddd;
+     margin-left: 100px
+}
+.con{
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    border: 1px solid green;
+    margin-left: 100px
+}
+
 
 </style>
 
