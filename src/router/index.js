@@ -5,7 +5,7 @@ let Search = ()=>import('@/views/search/search')//搜索
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
+ // mode:'history',
   scrollBehavior (to, from, savedPosition) {
     // return 期望滚动到哪个的位置 元素的滚动的行为
     if(savedPosition){
