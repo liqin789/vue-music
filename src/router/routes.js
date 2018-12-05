@@ -3,7 +3,9 @@ let NavBar = ()=>import('@/components/nav-bar/index')//导航
 let NewSong = ()=>import('@/views/new-song/new-song')//新歌
 let Plist = ()=>import('@/views/plist/plist')//歌单
 let Singer = ()=>import('@/views/singer/singer')//歌手
-let Search = ()=>import('@/views/search/search')//搜索
+let Rank = ()=>import('@/views/rank/rank')//歌手
+let Plan = ()=>import('@/views/plan/addPlan')//计划
+
 
 export let routes = [
       {
@@ -34,10 +36,22 @@ export let routes = [
         }
     },
     {
-        path:'/Search',
-        title:'搜索',
-        name:'Search',
-        component:Search
-    }
+        path:'/Rank',
+        title:'排行',
+        name:'Rank',
+        components:{
+          navbar:NavBar,
+          default:Rank
+        }
+    },
+    {
+      path:'/Plan',
+      title:'计划',
+      name:'Plan',
+      components:{
+        navbar:NavBar,
+        default:Plan
+      }
+  }
     
 ]
