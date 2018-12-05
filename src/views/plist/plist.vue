@@ -25,7 +25,6 @@
                 <div class="con" :style="getColor" ref="con">
                         点击左侧图标改变字体颜色的部分
                 </div>
-          
       </div>
 
     
