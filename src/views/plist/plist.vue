@@ -27,7 +27,9 @@
                 </div>
       </div>
 
-    
+      <hr>
+
+      <MyCard :list="listData"></MyCard>
 
     </div>
 </template>
@@ -37,13 +39,18 @@ import { Material,Compact ,Swatches,Slider,Sketch,Chrome,Photoshop} from 'vue-co
 
 
 import {getCookie,removeCookie} from "@/utils/index.js"
+
+import MyCard from "@/components/card.vue"
+
+
 export default {
     data(){
         return{
              colors : '#194d33',
              isShowColor:false,
-                
-        
+             listData:[
+                 "足球","篮球","排球","乒乓球"
+             ]
         }
     },
     components:{
@@ -53,7 +60,8 @@ export default {
         'slider-picker': Slider,
         'sketch-picker': Sketch,
         'chrome-picker': Chrome,
-        'photoshop-picker': Photoshop
+        'photoshop-picker': Photoshop,
+        "MyCard":MyCard
     },
     methods:{
  

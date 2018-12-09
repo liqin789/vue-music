@@ -11,6 +11,13 @@
 
        <input id="upload" style="visibility: hidden;"  type="file" ref="uploadExcel" @change="importfn($event)"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 
+        <hr>
+        
+
+      <MyCard :list="listData">
+          <div slot="title">这是父组件自定义分发的内容</div>
+      </MyCard>
+
     </div>
 </template>
 <script>
@@ -20,10 +27,7 @@ import {getCookie} from "@/utils/index.js"
 import fileServer from "file-saver";
 import XLSX from "xlsx";
 
-
-
-
-
+import MyCard from "@/components/card.vue"
 export default {
     data(){
        return{
@@ -35,8 +39,17 @@ export default {
                   down:0,// 0默认  1下载
                   startdate:"2018-10-21",
                   enddate:'2018-10-21',
+                  
               },
+              listData:[
+                      "蓝色",
+                      "橘色",
+                      "橙色"
+                  ]
        } 
+    },
+    components:{
+         "MyCard": MyCard
     },
     methods:{//mapActions
         ...mapActions(['increment']),
