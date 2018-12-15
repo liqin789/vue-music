@@ -18,6 +18,49 @@
           <div slot="title">这是父组件自定义分发的内容</div>
       </MyCard>
 
+      <hr>
+
+    <template>
+  <el-table :data="tableData" border
+    style="width: 100%">
+    <el-table-column
+      fixed
+      prop="date"
+      label="日期"
+      width="150">
+    </el-table-column>
+    <el-table-column
+      prop="name"
+      label="姓名"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="province"
+      label="省份"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="city"
+      label="市区"
+      width="120">
+    </el-table-column>
+    
+    <el-table-column
+      label="操作"
+      width="100">
+      <template slot-scope="scope">
+        <el-button @click="upFieldOrder(scope.$index)"  type="text" size="small">上移</el-button>
+        <el-button type="text" @click="downFieldOrder(scope.$index)"  size="small">下移</el-button>
+      </template>
+    </el-table-column>
+
+  </el-table>
+</template>
+
+
+
+
+
     </div>
 </template>
 <script>
@@ -45,13 +88,46 @@ export default {
                       "蓝色",
                       "橘色",
                       "橙色"
-                  ]
+                  ],
+                  tableData: [{
+          date: '2016-05-01',
+          name: '王小虎1',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-02',
+          name: '王小虎2',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-03',
+          name: '王小虎3',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }]
        } 
     },
     components:{
          "MyCard": MyCard
     },
     methods:{//mapActions
+
+        upFieldOrder(index){
+             let temp = this.tableData[index-1];
+             this.$set(this.tableData,index-1,this.tableData[index])
+             this.$set(this.tableData,index,temp)
+        },
+        downFieldOrder(index){//下移元素
+             let temp = this.tableData[index];//Vue的set实现实时的更新的状态
+             this.$set(this.tableData,index,this.tableData[index+1])
+             this.$set(this.tableData,index+1,temp)
+        },
         ...mapActions(['increment']),
         //在此处的时候。increasement相当于是一个函数
         //action提交额外数据的时候需要手动调用  mapAction提交数据的时候，需要可以进行传递参数的形式
