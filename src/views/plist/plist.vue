@@ -29,7 +29,7 @@
       <hr>
       <MyCard :list="listData"></MyCard>
       <hr>
-
+        <h2>回调</h2>
        <el-select v-model="value" placeholder="请选择">
         <el-option
         v-for="item in options"
@@ -38,6 +38,20 @@
         :value="item.value">
         </el-option>
     </el-select>
+
+      <hr>
+      <h2>async await解决</h2>
+      <el-select v-model="value2" placeholder="请选择">
+        <el-option
+        v-for="item in options2"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+        </el-option>
+    </el-select>
+
+
+
 
 
     </div>
@@ -62,7 +76,9 @@ export default {
                     "足球","篮球","排球"
                 ],
                 options: [],
-                value: ''
+                value: '',
+                options2: [],
+                value2: ''
              }
     },
     components:{
@@ -86,8 +102,43 @@ export default {
         })
 
         this.getSelectData(this.getEditInfo);//作为回调函数执行  先加载所有在匹配当前
+
+        this.getEditInfo2();
+
     },
     methods:{
+        async getEditInfo2(){
+             await this.getSelectData2();
+             setTimeout(()=>{
+                this.value2 = "4"
+            },1000)
+        },
+
+        getSelectData2(){//使用函数的回调解决延迟的问题
+            return new Promise((resolve, reject)=>{
+                 setTimeout(()=>{
+                    this.options2 =[{
+                            value: '1',
+                            label: '黄金糕'
+                            }, {
+                            value: '2',
+                            label: '双皮奶'
+                            }, {
+                            value: '3',
+                            label: '蚵仔煎'
+                            }, {
+                            value: '4',
+                            label: '龙须面'
+                            }, {
+                            value: '5',
+                            label: '北京烤鸭'
+                    }]
+                    resolve()
+               },3000)
+            })
+           
+        },
+
         getEditInfo(){
             setTimeout(()=>{
                 console.log("sing")
@@ -115,7 +166,6 @@ export default {
                  }]
                  callback()
             },3000)
-           
         },
  
         showColor(){
