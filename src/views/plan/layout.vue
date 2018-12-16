@@ -18,29 +18,54 @@
     
             按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
         </div>
+        <hr>
+        <h2>动态组件</h2>
+           <button @click="changePage(index)" v-for="(item,index) in list " :key="index">{{item.name}}</button>
+        <keep-alive>
+             <component v-bind:is="currentTabComponent"></component>
+        </keep-alive>
+
     </div>
 </template>
 
 <script>
+    import Content from "@/components/content"
+    import News from "@/components/news.vue"
+    import Ad from "@/components/ad.vue"
     export default {
         data() {
             return {
-                colnum: 1
+                colnum: 1,
+                currentTabComponent:Content,
+                list:[
+                    {
+                        name:'联系',
+                        word:'Content'
+                    },{
+                        name:'新闻',
+                        word:'News'
+                    },{
+                        name:'广告',
+                        word:'Ad'
+                    }
+                ]
+
             };
         },
         methods: {
-            /*
-                column-width 栏目宽度
-    
-                column-count 栏目列数
-    
-                column-gap   栏目距离
-    
-                column-rule  栏目间隔线
-                * */
+          changePage(index){//点击切换的时候，改变动态组件的内容
+              //去掉字符串
+              let arr =['Content','News','Ad'];
+              this.currentTabComponent = arr[index];
+          }
+        },
+        components:{
+             News,
+             Content,
+             Ad
         },
         computed: {
-            //使用计算属性 实时进行值的改变
+            //使用计算属性 实时进行值的改变  动态组件使用component is的属性的分析
             styleObject() {
                 return {
                     color: "red",
