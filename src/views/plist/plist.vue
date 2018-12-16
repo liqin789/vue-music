@@ -49,7 +49,7 @@ export default {
              colors : '#194d33',
              isShowColor:false,
              listData:[
-                 "足球","篮球","排球","乒乓球"
+                 "足球","篮球","排球"
              ]
         }
     },

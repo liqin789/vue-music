@@ -5,6 +5,7 @@ let Plist = ()=>import('@/views/plist/plist')//歌单
 let Singer = ()=>import('@/views/singer/singer')//歌手
 let Rank = ()=>import('@/views/rank/rank')//歌手
 let Plan = ()=>import('@/views/plan/addPlan')//计划
+let Layout = ()=>import('@/views/plan/layout')//布局
 
 
 export let routes = [
@@ -52,6 +53,15 @@ export let routes = [
         navbar:NavBar,
         default:Plan
       }
-  }
+   },
+   {
+    path:'/layout',
+    title:'布局',
+    name:'layout',
+    components:{
+      navbar:NavBar,
+      default:Layout
+    }
+ }
     
 ]
