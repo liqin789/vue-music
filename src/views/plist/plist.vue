@@ -26,10 +26,19 @@
                         点击左侧图标改变字体颜色的部分
                 </div>
       </div>
-
+      <hr>
+      <MyCard :list="listData"></MyCard>
       <hr>
 
-      <MyCard :list="listData"></MyCard>
+       <el-select v-model="value" placeholder="请选择">
+        <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+        </el-option>
+    </el-select>
+
 
     </div>
 </template>
@@ -41,17 +50,20 @@ import { Material,Compact ,Swatches,Slider,Sketch,Chrome,Photoshop} from 'vue-co
 import {getCookie,removeCookie} from "@/utils/index.js"
 
 import MyCard from "@/components/card.vue"
+import { setTimeout } from 'timers';
 
 
 export default {
     data(){
         return{
-             colors : '#194d33',
-             isShowColor:false,
-             listData:[
-                 "足球","篮球","排球"
-             ]
-        }
+                colors : '#194d33',
+                isShowColor:false,
+                listData:[
+                    "足球","篮球","排球"
+                ],
+                options: [],
+                value: ''
+             }
     },
     components:{
         'material-picker': Material,
@@ -63,7 +75,48 @@ export default {
         'photoshop-picker': Photoshop,
         "MyCard":MyCard
     },
+    mounted(){
+        if(getCookie("username")){
+            removeCookie('username')
+        }
+        let _this = this;
+        document.addEventListener("click",function(e){//点击空白处隐藏
+            if(!!_this.$refs.userInfo.contains(e.target)) return;
+            _this.isShowColor  = false;
+        })
+
+        this.getSelectData(this.getEditInfo);//作为回调函数执行  先加载所有在匹配当前
+    },
     methods:{
+        getEditInfo(){
+            setTimeout(()=>{
+                console.log("sing")
+                this.value = "5"
+            },1000)
+        },
+        getSelectData(callback){//使用函数的回调解决延迟的问题
+            setTimeout(()=>{
+                console.log("all")
+                this.options =[{
+                        value: '1',
+                        label: '黄金糕'
+                        }, {
+                        value: '2',
+                        label: '双皮奶'
+                        }, {
+                        value: '3',
+                        label: '蚵仔煎'
+                        }, {
+                        value: '4',
+                        label: '龙须面'
+                        }, {
+                        value: '5',
+                        label: '北京烤鸭'
+                 }]
+                 callback()
+            },3000)
+           
+        },
  
         showColor(){
             this.isShowColor =!this.isShowColor
@@ -98,18 +151,7 @@ export default {
             }
         }
     },
-    mounted(){
-        if(getCookie("username")){
-            removeCookie('username')
-        }
-        let _this = this;
-        document.addEventListener("click",function(e){//点击空白处隐藏
-            if(!!_this.$refs.userInfo.contains(e.target)) return;
-            _this.isShowColor  = false;
-        })
-        
-        
-    }
+    
 }
 </script>
 <style>
