@@ -1,105 +1,105 @@
 <template>
     <div>
-        <div class="left" ref="left">
-
-        </div>
-        <div class="main" ref="main">
-            <div class="inner">
-                    <h2>定向的选择加上布局的实战</h2>
-                    <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="planRuleForm">
-                        <el-form-item label="投放时段:">
-                        <div >
-                            <vTimeSlot ref="timeslot" @curActiveTabPeriod="curActiveTabPeriod"></vTimeSlot>
-                        </div>
-                        </el-form-item>
-                    </el-form>
-            </div>
-     
-         </div>
-
-         <div class="right" ref="right">
-
-         </div>
-
-
+        <h2>组件的递归</h2>
+        <lq-tree :dataList="dataList"></lq-tree>
+        <!-- <ul>
+            <li>
+                <span>1</span>
+                <ul>
+                    <li>
+                        <span>1-1</span>
+                    </li>
+                    <li>
+                        <span>1-2</span>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
     </div>
 </template>
 <script>
-import vTimeSlot from "./timeSlot.vue";
-export default {
-    data(){
-        return{
-             curTimeActiveTabPeriod: "", //投放时段的页签
-             ruleForm:{
-                 
-             }
+import Vue from "vue"
+// 定义一个名 lq-tree 的新数组件 先把静态页面布局结构 写出来，然后用真实的数据就行替换静态的数据
+// 学会使用递归进行数据的渲染，减少代码的重复的使用 
+//使用 template模版标签可以渲染出一个空的标签  用于循环和减少页面之间的嵌套  必选层级较多 
+//使用v-if 判断是否还有子元素，有的情况下 使用递归进行嵌套
+Vue.component('lq-tree', {
+    data: function () {
+        return {
+            count: 0,
         }
     },
-    components:{
-        vTimeSlot,
+    props: ['dataList'],
+    template: ` <ul>
+                  <li v-for='item in dataList'>
+                     <span>{{item.name}}</span>
+                     <template v-if="item.child">
+                        <lq-tree :dataList='item.child'></lq-tree>
+                     </template>
+                  </li>
+                </ul>
+                   `
+})
+
+export default {
+    data () {
+        return {
+            dataList: [
+                {
+                    id: '1',
+                    name: '1',
+                    child: [
+                        {
+                            id: "1-1",
+                            name: '1-1'
+                        },
+                        {
+                            id: "1-2",
+                            name: '1-2'
+                        }
+                    ]
+                },
+                {
+                    id: '2',
+                    name: '2',
+                    child: [
+                        {
+                            id: "2-1",
+                            name: '2-1'
+                        },
+                        {
+                            id: "2-2",
+                            name: '2-2',
+                            child: [
+                                {
+                                    id: "2-2-1",
+                                    name: '2-2-1'
+                                },
+                                {
+                                    id: "2-2-2",
+                                    name: '2-2-2'
+                                },
+                                {
+                                    id: "2-2-3",
+                                    name: '2-2-3'
+                                }
+                            ]
+                        }
+                    ]
+                }
+
+            ]
+        }
     },
-    mounted(){
-        //监听滚动条的高度
+    methods: {
 
-       window.addEventListener('scroll', function(){
-           //隐藏位置高度  scrollTop  
-           //窗口的高度 clientHeight
-           //元素滚动条内的内容的高度 scrollHeight
-           console.log(document.documentElement.scrollTop)
-           console.log(document.documentElement.clientHeight)
-           console.log(this.$refs.left.scrollHeight)
-
-           if(document.documentElement.scrollTop + document.documentElement.clientHeight >= this.$refs.left.scrollHeight){
-               console.log("ok")
-               //右侧是一致的
-                    this.$refs.left.style.cssText = "position:fixed; font-size:13px;bottom:0px;z-index:99";
-                    this.$refs.main.style.cssText = "margin-left:300px";
-           }else{
-                 this.$refs.left.style.cssText = " float: left";
-                 this.$refs.main.style.cssText = "margin-left:0px";
-           }
-
-
-       }.bind(this))
-
-        
-    },
-    methods:{
-       curActiveTabPeriod(val) {
-          this.curTimeActiveTabPeriod = val;
-        },
     }
 }
 </script>
-
 <style scoped>
-   .left{
-        width: 300px;
-        float: left;
-        border:1px solid red;
-        height: 3000px;
-   }
-   .main{
-        float:left;
-        margin-left:2px;
-        height: 11039px;
-        border:1px solid #ddd;
-        width: 900px
-   }
-   .inner{
-       position: relative;
-   }
-   .right{
-       float:right;
-       width: 300px;
-       border:1px solid green;
-       height: 2142px;
-   }
-   @media screen and (max-width: 600px) { /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
-        .class {
-            background: #ccc;
-        }
-  }
-  
+ul > li {
+    cursor: pointer;
+}
 </style>
+
 
