@@ -20,6 +20,11 @@
                     </ul>
                 </li>
             </ul> -->
+
+        <hr>
+        <h2>使用全局的组件</h2>
+        <lq-ul :dataList="dataList"></lq-ul>
+
     </div>
 </template>
 
@@ -53,7 +58,7 @@ export default {
         return {
             dataList: [{
                 id: '1',
-                name: '1',
+                name: '1组件',
                 child: [{
                     id: "1-1",
                     name: '1-1'
@@ -66,7 +71,7 @@ export default {
             },
             {
                 id: '2',
-                name: '2',
+                name: '2组件',
                 child: [{
                     id: "2-1",
                     name: '2-1'
