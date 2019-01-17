@@ -1,37 +1,61 @@
 <template>
     <div>
-        <span>数量</span>
-        <span>{{count}}</span>
 
-        <br />
-        <v-tree ref='tree'
-                :data='treeData'
-                :multiple='true'
-                @node-click="getSelectedNodes"
-                @node-check="getCheckedNodes2"
-                :halfcheck='true' />
+        <el-row>
+            <el-col :span="12">
+                <div class="grid-content bg-purple"></div>
 
-        <br />
+                <span>数量</span>
+                <span>{{count}}</span>
 
-        <h2>promise的异步回调的使用使用场景，元素的下拉的，编辑的时候，需要显示默认的下拉的值，
-            <br />
-            然而ajax是异步的程序并不知道，请求下拉数据和请求编辑参数的先后99999</h2>
+                <br />
+                <v-tree ref='tree'
+                        :data='treeData'
+                        :multiple='true'
+                        @node-click="getSelectedNodes"
+                        @node-check="getCheckedNodes2"
+                        :halfcheck='true' />
 
-        <el-select v-model="value"
-                   placeholder="请选择">
-            <el-option v-for="item in options"
-                       :key="item.value"
-                       :label="item.label"
-                       :value="item.value">
-            </el-option>
-        </el-select>
+                <br />
 
-        <hr>
-        <h2>A-b-C组件之间的通信</h2>
-        <Child1 :menuData="menuData"
-                v-on:getC="getC">
-            <div slot="title">A标题弹框</div>
-        </Child1>
+                <h2>promise的异步回调的使用使用场景，元素的下拉的，编辑的时候，需要显示默认的下拉的值，
+                    <br />
+                    然而ajax是异步的程序并不知道，请求下拉数据和请求编辑参数的先后99999</h2>
+
+                <el-button @click="getSelectText">获得选中的值</el-button>
+
+                <el-select v-model="value"
+                           placeholder="请选择">
+                    <el-option v-for="item in options"
+                               :key="item.value"
+                               :label="item.label"
+                               :value="item.value">
+                    </el-option>
+                </el-select>
+
+                <hr>
+                <h2>A-b-C组件之间的通信</h2>
+                <Child1 :menuData="menuData"
+                        v-on:getC="getC">
+                    <div slot="title">A标题弹框</div>
+                </Child1>
+            </el-col>
+            <el-col :span="12">
+                <div>
+                    调取本地的相机和摄像头并回显示到页面中
+                </div>
+                <input type="file"
+                       @change="uploadImg"
+                       accept="image/*"
+                       capture="camera">
+
+                <img :src="resultUrl"
+                     style="width:50%;height:auto"
+                     alt="">
+
+            </el-col>
+
+        </el-row>
 
     </div>
 </template>
@@ -43,6 +67,7 @@ import Child1 from "./component/Child1"
 export default {
     data () {
         return {
+            resultUrl: '',
             menuData: [
                 {
                     id: 1,
@@ -120,6 +145,8 @@ export default {
         this.getSelectData().then((data) => {
             this.getEditInfo();
         })
+
+
     },
     components: {
         Child1
@@ -130,6 +157,29 @@ export default {
         })
     },
     methods: {
+        uploadImg (e) {
+            const reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+            reader.onload = (e) => {
+                this.resultUrl = e.target.result
+            };
+        },
+        getSelectText () {
+            let userSelection = "";
+            if (window.getSelection) {//一般浏览器
+                userSelection = window.getSelection();
+            } else if (document.selection) {
+                userSelection = document.selection.createRange();
+            }
+            var strInput = "";
+            try {
+                strInput += " " + userSelection.toString();
+            } catch (e) {//I兼容IE
+                strInput += " " + userSelection.text;
+            }
+            console.log('userSelection', userSelection.toString())
+
+        },
         getC (data) {
             console.log("我在A组件,监听C组件的触发的函数,并得到C传递的值", data)
         },
