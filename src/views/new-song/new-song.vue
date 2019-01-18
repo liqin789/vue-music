@@ -44,10 +44,9 @@
                 <div>
                     调取本地的相机和摄像头并回显示到页面中
                 </div>
+
                 <input type="file"
-                       @change="uploadImg"
-                       accept="image/*"
-                       capture="camera">
+                       accept="image/*" />
 
                 <img :src="resultUrl"
                      style="width:50%;height:auto"
