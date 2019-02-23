@@ -14,6 +14,9 @@ import axios from 'axios'
 
 Vue.prototype.$http = axios
 
+import Print from 'vue-print-nb'
+Vue.use(Print);
+
 import 'mint-ui/lib/style.css'
 Vue.use(Mint)
 
@@ -35,6 +38,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })

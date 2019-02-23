@@ -1,18 +1,19 @@
 <template>
     <div>
-        这是一个广告的页面
+        <slot name="title"></slot>
+        这是一个的详情介绍
     </div>
 </template>
 <script>
+// 作用域插槽的使用
 export default {
-    data(){
-        return{
+    data () {
+        return {
 
         }
     }
 }
 </script>
 <style scoped>
-
 </style>
 

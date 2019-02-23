@@ -25,11 +25,16 @@
         <h2>使用全局的组件</h2>
         <lq-ul :dataList="dataList"></lq-ul>
 
+        <Ad>
+            <h1 slot="title">计划1</h1>
+        </Ad>
+
     </div>
 </template>
 
 <script>
 import Vue from "vue"
+import Ad from "@/components/ad.vue"
 // 定义一个名 lq-tree 的新数组件 先把静态页面布局结构 写出来，然后用真实的数据就行替换静态的数据
 // 学会使用递归进行数据的渲染，减少代码的重复的使用 
 //使用 template模版标签可以渲染出一个空的标签  用于循环和减少页面之间的嵌套  必选层级较多 
@@ -98,6 +103,9 @@ export default {
 
             ]
         }
+    },
+    components: {
+        Ad
     },
     mounted () {
         var result = this.getNum(6);
