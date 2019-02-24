@@ -51,6 +51,9 @@
                 <img :src="resultUrl"
                      style="width:50%;height:auto"
                      alt="">
+                <hr>
+
+                <el-button @click="toast">自定义taost弹出框插件</el-button>
 
             </el-col>
 
@@ -222,6 +225,9 @@ export default {
         },
         getNodes (val) {
             console.log(val)
+        },
+        toast () {
+            this.$toast("弹出自定义的插件", "地址列表")
         }
 
     }

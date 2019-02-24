@@ -31,6 +31,14 @@ import VTree from 'vue-tree-halower'
 
 Vue.use(VTree)
 
+
+
+//自己封装的弹框插件
+import Toast from "./components/toast"
+Vue.use(Toast)
+
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
