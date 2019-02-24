@@ -37,6 +37,8 @@ Vue.use(VTree)
 import Toast from "./components/toast"
 Vue.use(Toast)
 
+import Loading from "./components/Loading/Loading.js"
+Vue.use(Loading)
 
 
 Vue.config.productionTip = false

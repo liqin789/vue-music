@@ -55,6 +55,8 @@
 
                 <el-button @click="toast">自定义taost弹出框插件</el-button>
 
+                <loading :isshow='show'></loading>
+
             </el-col>
 
         </el-row>
@@ -69,6 +71,7 @@ import Child1 from "./component/Child1"
 export default {
     data () {
         return {
+            show: true,
             resultUrl: '',
             menuData: [
                 {
@@ -147,6 +150,10 @@ export default {
         this.getSelectData().then((data) => {
             this.getEditInfo();
         })
+
+        setTimeout(() => {
+            this.show = false
+        }, 2000)
 
 
     },
