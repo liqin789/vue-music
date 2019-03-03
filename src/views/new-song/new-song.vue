@@ -68,6 +68,9 @@ import { mapState } from 'vuex'
 import { setTimeout } from 'timers';
 import Child1 from "./component/Child1"
 
+import axios from 'axios'
+
+
 export default {
     data () {
         return {
@@ -155,6 +158,17 @@ export default {
             this.show = false
         }, 2000)
 
+        axios({
+            url: 'https://www.easy-mock.com/mock/59952ae9059b9c566dc18e2d/getData/getRight',
+            method: 'get',
+            timeout: 10// 设置超时的处理  超时的时候 catch 一个异常的处理
+        }).then(function (response) {
+            console.log(response);
+        })
+            .catch(function (error) {
+                console.error(error);
+            });
+
 
     },
     components: {
@@ -193,13 +207,11 @@ export default {
             console.log("我在A组件,监听C组件的触发的函数,并得到C传递的值", data)
         },
         getEditInfo () {//获得编辑信息
-            console.log("seconed")
             setTimeout(() => {
                 this.value = 3
             }, 500)
         },
         getSelectData () {//获得下拉数据,放到promise的resolve的里面
-            console.log("first")
             return new Promise((resolve, reject) => {
                 setTimeout(() => {//使用settimeout模拟ajax请求数据
                     let data = [

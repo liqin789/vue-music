@@ -1,64 +1,98 @@
 <template>
-    <div>
-        <h2>实现多列布局</h2>
-        <span>输入列数：</span>
-        <el-input style="width:200px"
-                  v-model="colnum"
-                  placeholder="请输入内容"></el-input>
-        <div class="wrap"
-             :style="styleObject">
-            按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+    <el-row>
+        <el-col :span="12">
+            <div>
+                <h2>实现多列布局</h2>
+                <span>输入列数：</span>
+                <el-input style="width:200px"
+                          v-model="colnum"
+                          placeholder="请输入内容"></el-input>
+                <div class="wrap"
+                     :style="styleObject">
+                    按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                    按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                    按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                </div>
+                <hr>
+                <h2>动态组件</h2>
+                <button @click="changePage(index)"
+                        v-for="(item,index) in list "
+                        :key="index">{{item.name}}</button>
+                <keep-alive>
+                    <component v-bind:is="currentTabComponent"></component>
+                </keep-alive>
 
-            按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                <hr>
+                <div id="printTest">
+                    　　　　　<p>锄禾日当午</p>
+                    　　　　　<p>汗滴禾下土 </p>
+                    　　　　　<p>谁知盘中餐</p>
+                    　　　　　<p>粒粒皆辛苦</p>
+                    　　　</div>
+                　　　<button v-print="'#printTest'">打印</button>
 
-            按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                <hr />
 
-            按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                <div id="subOutputRank-print">
+                    战略思维为何重要？2014固然取卵的短期行为时有发生，莫不与缺少战略思维有关。
+                </div>
 
-            按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                <el-button @click="printTable">原生打印</el-button>
 
-            按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
+                <Ad>
+                    <h1 slot="title">布局1</h1>
+                </Ad>
+            </div>
+        </el-col>
+        <el-col :span="12">
+            <h2>语音上传的下载</h2>
+            <audio :src="audioSrc"
+                   controls="controls"
+                   loop="loop">亲 您的浏览器不支持html5的audio标签</audio>
 
-            按照淘宝首页的无缝图片切换做：第一张和最后一张复制，打开浏览器时ul的left是-520，然后走完最后一张，ul的left是-1040。这样实现无缝切换，我就是卡在这里了，它这么样实现到最后一个还是顺着到-1040，保证不是倒;
-        </div>
-        <hr>
-        <h2>动态组件</h2>
-        <button @click="changePage(index)"
-                v-for="(item,index) in list "
-                :key="index">{{item.name}}</button>
-        <keep-alive>
-            <component v-bind:is="currentTabComponent"></component>
-        </keep-alive>
+            <hr>
 
-        <hr>
-        <div id="printTest">
-            　　　　　<p>锄禾日当午</p>
-            　　　　　<p>汗滴禾下土 </p>
-            　　　　　<p>谁知盘中餐</p>
-            　　　　　<p>粒粒皆辛苦</p>
-            　　　</div>
-        　　　<button v-print="'#printTest'">打印</button>
+            <input type="file"
+                   name="avatar"
+                   id="avatar"
+                   multiple="multiple"
+                   @change="upload($event)">
+            <hr>
 
-        <hr />
+            <img :src="imgSrc"
+                 alt="12">
+            <hr>
 
-        <div id="subOutputRank-print">
-            战略思维为何重要？2014年8月，习近平在纪念邓小平同志诞辰110周年座谈会上深刻指出，“战略问题是一个政党、一个国家的根本性问题。战略上判断得准确，战略上谋划得科学，战略上赢得主动，党和人民事业就大有希望。”
-            　　早在2003年，习近平就发表文章表明，“要有世界眼光和战略思维”，“要努力增强总揽全局的能力，放眼全局谋一域，把握形势谋大事”。
-            　　党的十八大以来，他更是多次强调在改革和发展的各项工作中要有战略思维，“战略、全局、方向、长远”等都是他讲话中的高频词。谈到全面深化改革时，他说“不谋全局者，不足谋一域”，强调全面深化改革要坚持从大局出发考虑问题，“要真正向前展望、超前思维、提前谋局”；在省部级专题研讨班上，他指出“全党要提高战略思维能力，不断增强工作的原则性、系统性、预见性、创造性”。
-            　　站在战略的高度，努力增强总揽全局的能力，放眼全局谋一域，把握形势谋大事，才能够从全局角度、以长远眼光看问题，从整体上把握事物发展趋势和方向，才能够确保制定科学可行的战略方案，又能够根据环境变化及时调整战略方案。
-            　 习近平认为，要全面建成小康社会和实现社会主义现代化，有许许多多的重大问题需要进行战略谋划。凡是涉及我国经济、政治、文化、社会、生态、外交、国防和党的建设等全局性的重大问题，都需要从战略上进行思考、研究和筹谋。
-            　　2012年12月9日，习近平提出了“中华民族伟大复兴中国梦”的宏伟愿景。为了实现这个奋斗目标，以习近平同志为核心的党中央立足中国发展实际，逐渐形成了“五位一体”总体布局和“四个全面”战略布局等一系列治国理政新理念、新思想、新战略。
-            　　在习近平看来，战略思维永远是中国共产党人应该树立的思维方式。对各级领导干部而言，战略思维能力则意味着，要善于把解决具体问题与解决深层次问题结合起来，不能头痛医头、脚痛医脚；善于把局部利益放在全局利益中去把握，不能只见树木、不见森林；善于把眼前需要与长远谋划统一起来，不能急功近利、投机取巧；善于把国内形势与国际环境结合起来，不能闭目塞听、固步自封。
-            　　现实中，也有一些干部认为，总揽全局是大领导的事，在地方、基层或部门工作没必要拥有战略思维。殊不知，何谓全局、何谓局部，本身就是相对的。相对于全国，地方固然是局部，但是相对于辖区，地方又何尝不是整体？一些地方，取利一时的短视决策寻常可见，杀鸡取卵的短期行为时有发生，莫不与缺少战略思维有关。
-        </div>
+            <el-upload class="upload-demo"
+                       ref="upload"
+                       action="doUpload"
+                       :limit="1"
+                       :before-upload="beforeUpload">
+                <el-button slot="trigger"
+                           size="small"
+                           type="primary">选取文件</el-button>
+                <a href="./static/moban.xlsx"
+                   rel="external nofollow"
+                   download="模板">
+                    <el-button size="small"
+                               type="success">下载模板</el-button>
+                </a>
+                <!-- <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button> -->
+                <div slot="tip"
+                     class="el-upload__tip">只能上传excel文件，且不超过5MB</div>
+                <div slot="tip"
+                     class="el-upload-list__item-name">{{fileName}}</div>
+            </el-upload>
+            <span slot="footer"
+                  class="dialog-footer">
+                <el-button @click="visible = false">取消</el-button>
+                <el-button type="primary"
+                           @click="submitUpload()">确定</el-button>
+            </span>
 
-        <el-button @click="printTable">原生打印</el-button>
+        </el-col>
+    </el-row>
 
-        <Ad>
-            <h1 slot="title">布局1</h1>
-        </Ad>
-
-    </div>
 </template>
 
 <script>
@@ -66,13 +100,16 @@ import Content from "@/components/content"
 import News from "@/components/news.vue"
 import Ad from "@/components/ad.vue"
 
-
-
 export default {
     data () {
         return {
+            doUpload: 'https://jsonplaceholder.typicode.com/posts/',
+            fileName: '',
             colnum: 1,
             currentTabComponent: Content,
+            // audioSrc: require("./YBXYQ.mp3"),
+            audioSrc: "",
+            imgSrc: '',
             list: [
                 {
                     name: '联系',
@@ -89,6 +126,99 @@ export default {
         };
     },
     methods: {
+
+        upload (e) {
+            let that = this;
+            console.log(e.target.files[0])
+            var freader = new FileReader();
+            freader.readAsDataURL(e.target.files[0]);
+            freader.onload = function (e) {
+                console.log(e.target.result)
+                that.imgSrc = e.target.result
+
+                // $("#image").attr("src", e.target.result);  //显示图片
+            }
+
+
+
+        },
+        beforeUpload (file) {
+            let that = this;
+            console.log(file, '文件');
+            this.files = file;
+            // let url = window.URL.createObjectURL(file);
+            // console.log(url)
+            // this.audioSrc = file
+            let url = window.URL.createObjectURL(file); //表示一个指定的file对象或Blob对象
+
+            // this.audioSrc = file
+            console.log(url, "看一下这是啥")
+            let a = document.createElement("a");
+            document.body.appendChild(a);
+            // let fileName = msg.headers["content-disposition"].split(";")[1].split("=")[1];  //filename名称截取
+            a.href = url;
+            a.download = "音频"; //命名下载名称
+            a.click(); //点击触发下载  
+            window.URL.revokeObjectURL(url);  //下载完成进行释放
+
+
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function (e) {
+                that.audioSrc = e.target.result
+                // $("#image").attr("src", e.target.result);  //显示图片
+            }
+
+
+
+
+            // const extension = file.name.split('.')[1] === 'xls'
+            // const extension2 = file.name.split('.')[1] === 'xlsx'
+            // const isLt2M = file.size / 1024 / 1024 < 5
+            // if (!extension && !extension2) {
+            //     this.$message.warning('上传模板只能是 xls、xlsx格式!')
+            //     return
+            // }
+            // if (!isLt2M) {
+            //     this.$message.warning('上传模板大小不能超过 5MB!')
+            //     return
+            // }
+            // this.fileName = file.name;
+            // return false // 返回false不会自动上传
+        },
+
+        submitUpload () {
+            debugger
+            console.log('上传' + this.files.name)
+            if (this.fileName == "") {
+                this.$message.warning('请选择要上传的文件！')
+                return false
+            }
+            let fileFormData = new FormData();
+            fileFormData.append('file', this.files, this.fileName);//filename是键，file是值，就是要传的文件，test.zip是要传的文件名
+            let requestConfig = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            }
+            this.$http.post(`/basedata/oesmembers/upload?companyId=` + this.company, fileFormData, requestConfig).then((res) => {
+                debugger
+                if (data && data.code === 0) {
+                    this.$message({
+                        message: '操作成功',
+                        type: 'success',
+                        duration: 1500,
+                        onClose: () => {
+                            this.visible = false
+                            this.$emit('refreshDataList')
+                        }
+                    })
+                } else {
+                    this.$message.error(data.msg)
+                }
+            })
+        },
+
         changePage (index) {//点击切换的时候，改变动态组件的内容
             //去掉字符串
             let arr = ['Content', 'News', 'Ad'];
