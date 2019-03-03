@@ -15,7 +15,11 @@
         <div class="content">
             <router-view class="navBar"
                          name="navbar" />
-            <router-view></router-view>
+
+            <keep-alive>
+                <router-view v-if="$route.meta.keepAlive"></router-view>
+            </keep-alive>
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
         </div>
     </div>
 </template>

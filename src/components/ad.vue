@@ -7,6 +7,7 @@
 <script>
 // 作用域插槽的使用
 export default {
+    name: 'ad',// 定义组件的名字
     data () {
         return {
 

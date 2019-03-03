@@ -161,7 +161,7 @@ export default {
         axios({
             url: 'https://www.easy-mock.com/mock/59952ae9059b9c566dc18e2d/getData/getRight',
             method: 'get',
-            timeout: 10// 设置超时的处理  超时的时候 catch 一个异常的处理
+            timeout: 1000// 设置超时的处理  超时的时候 catch 一个异常的处理
         }).then(function (response) {
             console.log(response);
         })
@@ -178,6 +178,12 @@ export default {
         ...mapState({
             count: "count"
         })
+    },
+
+    beforeRouteLeave (to, from, next) {
+        // 设置下一个路由的 meta
+        to.meta.keepAlive = true;  // B 跳转到 A 时，让 A 缓存，即不刷新
+        next();
     },
     methods: {
         uploadImg (e) {
