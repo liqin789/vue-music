@@ -5,6 +5,8 @@
             <el-col :span="12">
                 <div class="grid-content bg-purple"></div>
 
+                <el-button @click="getDatad">请求数据</el-button>
+
                 <span>数量</span>
                 <span>{{count}}</span>
 
@@ -158,16 +160,6 @@ export default {
             this.show = false
         }, 2000)
 
-        axios({
-            url: 'https://www.easy-mock.com/mock/59952ae9059b9c566dc18e2d/getData/getRight',
-            method: 'get',
-            timeout: 1000// 设置超时的处理  超时的时候 catch 一个异常的处理
-        }).then(function (response) {
-            console.log(response);
-        })
-            .catch(function (error) {
-                console.error(error);
-            });
 
 
     },
@@ -186,6 +178,18 @@ export default {
         next();
     },
     methods: {
+        getDatad () {
+            axios({
+                url: 'https://www.easy-mock.com/mock/59952ae9059b9c566dc18e2d/getData/getRight',
+                method: 'get',
+                timeout: 1000// 设置超时的处理  超时的时候 catch 一个异常的处理
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.error(error);
+            });
+
+        },
         uploadImg (e) {
             const reader = new FileReader();
             reader.readAsDataURL(e.target.files[0]);
