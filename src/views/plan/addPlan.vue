@@ -5,9 +5,11 @@
  -->
 <template>
     <div>
-        <h2>组件的递归</h2>
-        <lq-tree :dataList="dataList"></lq-tree>
-        <!-- <ul>
+        <el-row>
+            <el-col :span="12">
+                <h2 class="title">组件的递归</h2>
+                <lq-tree :dataList="dataList"></lq-tree>
+                <!-- <ul>
                 <li>
                     <span>1</span>
                     <ul>
@@ -21,13 +23,46 @@
                 </li>
             </ul> -->
 
-        <hr>
-        <h2>使用全局的组件</h2>
-        <lq-ul :dataList="dataList"></lq-ul>
+                <hr>
+                <h2 class="title">
+                    <span>使用全局的组件</span> </h2>
+                <lq-ul :dataList="dataList"></lq-ul>
 
-        <Ad>
-            <h1 slot="title">计划1</h1>
-        </Ad>
+                <Ad>
+                    <h1 slot="title">计划1</h1>
+                </Ad>
+            </el-col>
+            <el-col :span="12">
+                <h2 class="title"> <span>实现动态的渲染列</span> </h2>
+                <el-table :data="tableData"
+                          border
+                          style="width: 100%">
+                    <!-- <el-table-column prop="date"
+                                     label="日期"
+                                     width="180">
+                    </el-table-column>
+                    <el-table-column prop="name"
+                                     label="姓名"
+                                     width="90">
+                    </el-table-column>
+                    <el-table-column prop="address"
+                                     label="地址">
+                    </el-table-column> -->
+
+                    <el-table-column :label="item.label"
+                                     :key="index"
+                                     :prop="item.prop"
+                                     resizable
+                                     v-for="(item,index) in tableKeys"
+                                     :width="item.width">
+                        <template slot-scope="scope">
+                            <span>{{scope.row[`${item.prop}`]}}</span>
+                        </template>
+                    </el-table-column>
+
+                </el-table>
+            </el-col>
+        </el-row>
 
     </div>
 </template>
@@ -49,10 +84,10 @@ Vue.component('lq-tree', {
     template: ` <ul>
                       <li v-for='item in dataList'>
                          <span>{{item.name}}</span>
-    <template v-if="item.child">
-        <lq-tree :dataList='item.child'>
-        </lq-tree>
-    </template>
+                            <template v-if="item.child">
+                                <lq-tree :dataList='item.child'>
+                                </lq-tree>
+                            </template>
                       </li>
                     </ul>
                        `
@@ -61,6 +96,30 @@ Vue.component('lq-tree', {
 export default {
     data () {
         return {
+            //实现动态的渲染列  动态数据和表头信息
+            tableKeys: [
+                { 'id': 1, 'label': '日期', 'width': '180', 'prop': 'date' },
+                { 'id': 2, 'label': '姓名', 'width': '90', 'prop': 'name' },
+                { 'id': 3, 'label': '地址', 'prop': 'address' },
+            ],
+            tableData: [{
+                date: '2016-05-02',
+                name: '王小虎1',
+                address: '上海市普陀区金沙江路 1518 弄'
+            }, {
+                date: '2016-05-04',
+                name: '王小虎2',
+                address: '上海市普陀区金沙江路 1517 弄'
+            }, {
+                date: '2016-05-01',
+                name: '王小虎3',
+                address: '上海市普陀区金沙江路 1519 弄'
+            }, {
+                date: '2016-05-03',
+                name: '王小虎4',
+                address: '上海市普陀区金沙江路 1516 弄'
+            }]
+            ,
             dataList: [{
                 id: '1',
                 name: '1组件',
@@ -127,9 +186,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 ul > li {
     cursor: pointer;
+}
+.title {
+    span {
+        color: rgb(255, 47, 144);
+    }
 }
 </style>
 
