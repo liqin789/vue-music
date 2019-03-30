@@ -160,6 +160,15 @@ export default {
             this.show = false
         }, 2000)
 
+        //斐波那契数列
+
+
+        // console.log(this.fibo(8))
+
+        console.log(this.getMethods(5))
+
+
+
 
 
     },
@@ -178,6 +187,20 @@ export default {
         next();
     },
     methods: {
+
+        fibo (n) {//求出第n个数组的结果， 从第二项开始，每个数字都是前面两个数字的和
+            return n > 2 ? this.fibo(n - 1) + this.fibo(n - 2) : 1
+        },
+
+        getMethods (n) {
+            if (n <= 0) return 0;
+            if (n == 1) return 1;
+            if (n == 2) return 2;
+            if (n == 3) return 4;
+            return this.getMethods(n - 1) + this.getMethods(n - 2) + this.getMethods(n - 3)
+
+        },
+
         getDatad () {
             axios({
                 url: 'https://www.easy-mock.com/mock/59952ae9059b9c566dc18e2d/getData/getRight',
