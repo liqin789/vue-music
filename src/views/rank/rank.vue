@@ -1,19 +1,43 @@
 <template>
     <div>
-        现在的count是:{{count}}
-        <hr />
-        <h2>实现下拉加载更多的数据</h2>
-        <div style="height:500px;overflow:auto;border:1px solid red"
-             ref="myscroll">
-            <ul>
-                <li v-for="(item,index) in articles"
-                    :key="index">
-                    <h2>{{item.title}}</h2>
-                </li>
-            </ul>
-        </div>
-        <hr>
-        <lq-ul :dataList="dataList"></lq-ul>
+        <el-row>
+            <el-col :span="12">
+                现在的count是:{{count}}
+                <hr />
+                <h2>实现下拉加载更多的数据</h2>
+                <div style="height:300px;overflow:auto;border:1px solid red"
+                     ref="myscroll">
+                    <ul>
+                        <li v-for="(item,index) in articles"
+                            class="item"
+                            :key="index">
+                            <span>{{item.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <lq-ul :dataList="dataList"></lq-ul>
+            </el-col>
+            <el-col :span="12">
+                <!-- 自定义全局的指令 -->
+                <h2>自定义指令</h2>
+                <span>元素获得焦点</span>
+                <input type="text"
+                       v-focus
+                       name=""
+                       id="">
+                <div>
+                    <span>元素的拖拽</span>
+                    <div v-drag
+                         style="border:1px solid red;background:green;cursor: pointer;width:50px;height:50px;position:absolute"></div>
+                </div>
+                <div>
+                    <img style="width:100%"
+                         src="https://goss2.vcg.com/creative/vcg/800/version23/VCG41471892237.jpg"
+                         alt="">
+                </div>
+            </el-col>
+        </el-row>
 
     </div>
 </template>
@@ -115,4 +139,11 @@ export default {
 
 }
 </script>
+<style lang="scss" scoped>
+.item {
+    height: 25px;
+    line-height: 25px;
+}
+</style>
+
 

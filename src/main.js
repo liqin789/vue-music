@@ -40,6 +40,19 @@ Vue.use(Toast)
 import Loading from "./components/Loading/Loading.js"
 Vue.use(Loading)
 
+import _directive from "./utils/directive.js"
+console.log(_directive)
+
+for (let attr in _directive) {
+  Vue.directive(attr, _directive[attr])
+}
+
+Vue.directive('focus', {
+  inserted(el) {
+    el.focus()
+  }
+});
+
 
 Vue.config.productionTip = false
 
