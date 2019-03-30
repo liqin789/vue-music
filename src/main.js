@@ -32,7 +32,6 @@ import VTree from 'vue-tree-halower'
 Vue.use(VTree)
 
 
-
 //自己封装的弹框插件
 import Toast from "./components/toast"
 Vue.use(Toast)
@@ -40,20 +39,13 @@ Vue.use(Toast)
 import Loading from "./components/Loading/Loading.js"
 Vue.use(Loading)
 
-import _directive from "./utils/directive.js"
-console.log(_directive)
+import Img from "./components/Img/Img.js"
+Vue.use(Img)
 
+import _directive from "./utils/directive.js"
 for (let attr in _directive) {
   Vue.directive(attr, _directive[attr])
 }
-
-Vue.directive('focus', {
-  inserted(el) {
-    el.focus()
-  }
-});
-
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

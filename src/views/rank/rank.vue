@@ -32,10 +32,12 @@
                          style="border:1px solid red;background:green;cursor: pointer;width:50px;height:50px;position:absolute"></div>
                 </div>
                 <div>
-                    <img style="width:100%"
-                         src="https://goss2.vcg.com/creative/vcg/800/version23/VCG41471892237.jpg"
-                         alt="">
+                    <Img src="https://goss2.vcg.com/creative/vcg/800/version23/VCG41471892237.jpg" />
                 </div>
+                <div style="border:1px solid blue;height:300px">
+                    <loading :isshow="true"></loading>
+                </div>
+
             </el-col>
         </el-row>
 
