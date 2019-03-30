@@ -33,14 +33,21 @@ Vue.use(VTree)
 
 
 //自己封装的弹框插件
-import Toast from "./components/toast"
-Vue.use(Toast)
 
-import Loading from "./components/Loading/Loading.js"
-Vue.use(Loading)
+import components from "./utils/component"
+for (let attr in components) {
+  Vue.use(components[attr])
+}
 
-import Img from "./components/Img/Img.js"
-Vue.use(Img)
+// import Toast from "./components/toast"
+// Vue.use(Toast)
+
+// import Loading from "./components/Loading/Loading.js"
+// Vue.use(Loading)
+
+// import Img from "./components/Img/Img.js"
+// Vue.use(Img)
+
 
 import _directive from "./utils/directive.js"
 for (let attr in _directive) {

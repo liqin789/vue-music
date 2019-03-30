@@ -6,7 +6,6 @@
 export default {
   "focus": { //获取焦点的指令
     inserted(el) {
-      debugger
       el.focus()
     }
   },
