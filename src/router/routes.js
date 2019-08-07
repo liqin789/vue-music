@@ -6,7 +6,13 @@ let Rank = () => import('@/views/rank/rank') //歌手
 let Plan = () => import('@/views/plan/addPlan') //计划
 let Layout = () => import('@/views/plan/layout') //布局
 let myCom = () => import('@/views/myCom/myCom') //组件
-export let routes = [{
+
+let diaTable = () => import('@/views/diaTable/diaTable') //组件
+
+let treeMenu = () => import('@/views/treeMenu/treeMenu') //组件
+
+export let routes = [
+  {
     path: '/',
     title: '新歌',
     name: 'NewSong',
@@ -89,6 +95,29 @@ export let routes = [{
     meta: {
       keepAlive: false // 不需要缓存
     }
+  },
+  {
+    path: '/diaTable',
+    title: '表格',
+    name: 'diaTable',
+    components: {
+      navbar: NavBar,
+      default: diaTable
+    },
+    meta: {
+      keepAlive: false // 不需要缓存
+    }
+  },
+  {
+    path: '/treeMenu',
+    title: '树控件',
+    name: 'treeMenu',
+    components: {
+      navbar: NavBar,
+      default: treeMenu
+    },
+    meta: {
+      keepAlive: false // 不需要缓存
+    }
   }
-
 ]
