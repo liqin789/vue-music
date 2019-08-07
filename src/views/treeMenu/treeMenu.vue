@@ -18,6 +18,10 @@
           {{ node.label }}</span>
       </span>
     </el-tree>
+    <hr />
+    <div>
+      <el-button @click="refshParent">改变子页面值,并刷新父页面</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -32,6 +36,10 @@ export default {
     this.addChildren(this.treeData)
   },
   methods: {
+    refshParent() {
+      //window.opener  是父窗口的对象 子页面向父窗口通信
+      window.opener.postMessage("Message to parent", "*");
+    },
     addChildren(arr) {
       for (let i = 0; i < arr.length; i++) {
         if (arr[i].isParent) {

@@ -98,6 +98,12 @@
       </span>
     </el-tree>
 
+    <hr />
+    <div>
+      <h2>vue-router打开新的页面，子页面改变，触发父页面进行更新</h2>
+    </div>
+    <el-button @click="goRouter">打开新页面</el-button>
+
   </div>
 </template>
 <script>
@@ -337,7 +343,27 @@ export default {
       defaultExpand: false
     }
   },
+  mounted() {
+    window.addEventListener('message', (e) => {
+      //监听子页面，传递的消息，在父页面可以执行相应的功能 也可以将信息传递到其他的页面中
+      // 使用postMessage 进行页面之间的通信 实现页面之间的通信
+      console.log(e.data)
+      this.getList()
+    }, false);
+  },
   methods: {
+    getList() {
+      console.log("父窗口中的函数")
+    },
+    goRouter() {
+      const { href } = this.$router.resolve({
+        name: "treeMenu",
+        query: {
+          id: "1212"
+        }
+      });
+      window.open(href, '_blank');
+    },
     // 使用递归和for循环或者 同时使用会造成浪费
     findText(data) {
       if (!!this.findId) {

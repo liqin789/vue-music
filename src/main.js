@@ -15,7 +15,7 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 
 import Print from 'vue-print-nb'
-Vue.use(Print);
+Vue.use(Print)
 
 import 'mint-ui/lib/style.css'
 Vue.use(Mint)
@@ -31,10 +31,12 @@ import VTree from 'vue-tree-halower'
 
 Vue.use(VTree)
 
+//定义全局的事件事件总线
+Vue.prototype.bus = new Vue()
 
 //自己封装的弹框插件
 
-import components from "./utils/component"
+import components from './utils/component'
 for (let attr in components) {
   Vue.use(components[attr])
 }
@@ -48,8 +50,7 @@ for (let attr in components) {
 // import Img from "./components/Img/Img.js"
 // Vue.use(Img)
 
-
-import _directive from "./utils/directive.js"
+import _directive from './utils/directive.js'
 for (let attr in _directive) {
   Vue.directive(attr, _directive[attr])
 }
