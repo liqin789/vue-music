@@ -21,7 +21,7 @@ export let routes = [
       default: NewSong
     },
     meta: {
-      keepAlive: false // 不需要缓存
+      keepAlive: false // 不需要缓存 用来让页面是缓存与否
     }
   },
   {

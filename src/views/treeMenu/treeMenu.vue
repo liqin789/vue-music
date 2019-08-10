@@ -22,20 +22,66 @@
     <div>
       <el-button @click="refshParent">改变子页面值,并刷新父页面</el-button>
     </div>
+    <hr />
+    <h2>动态组件形式</h2>
+    <template>
+      <el-radio-group v-model="radio"
+                      @change="changeCom">
+        <el-radio label="com1">动态组件一</el-radio>
+        <el-radio label="com2">动态组件二</el-radio>
+      </el-radio-group>
+
+      <keep-alive>
+        <component v-bind:is="currentTabComponent"
+                   :comOptions="comOptions">
+          <div>
+            wewe
+          </div>
+        </component>
+      </keep-alive>
+
+    </template>
+
   </div>
 </template>
 <script>
+import com1 from "./com1"
+import com2 from "./com2"
 export default {
-  watch: {
-    filterText(val) {
-      this.$refs.tree.filter(val);
-    }
+  components: {
+    com1,
+    com2
   },
-  mounted() {
-    //树节点 如果属性isParent = true  默认添加children可以点击
-    this.addChildren(this.treeData)
+  data() {
+    return {
+      comOptions: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }],
+      radio: 'com1',
+      currentTabComponent: com1,//动态组件渲染
+      filterText: '',
+      treeData: [
+        {          "catgLevel": 1, "catlogId": "1",
+          "chkDisabled": false,
+          "id": "c2000104", "isParent": true,
+          "isRoot": true, "name": "中文", "pId": "c02706",        }
+      ],
+      defaultProps: {
+        children: 'children',
+        label: 'name'
+      }
+    };
   },
   methods: {
+    // 切换动态组件
+    changeCom() {
+      console.log(this.radio)
+      this.currentTabComponent = this.radio
+    },
     refshParent() {
       //window.opener  是父窗口的对象 子页面向父窗口通信
       window.opener.postMessage("Message to parent", "*");
@@ -77,22 +123,20 @@ export default {
       return data.name.indexOf(value) !== -1;
     }
   },
+  watch: {
+    filterText(val) {
+      this.$refs.tree.filter(val);
+    }
+  },
+  mounted() {
+    //树节点 如果属性isParent = true  默认添加children可以点击
+    this.addChildren(this.treeData)
+    // 数组的reduce 方法
 
-  data() {
-    return {
-      filterText: '',
-      treeData: [
-        {          "catgLevel": 1, "catlogId": "1",
-          "chkDisabled": false,
-          "id": "c2000104", "isParent": true,
-          "isRoot": true, "name": "中文", "pId": "c02706",        }
-      ],
-      defaultProps: {
-        children: 'children',
-        label: 'name'
-      }
-    };
-  }
+
+  },
+
+
 };
 </script>
 <style>
