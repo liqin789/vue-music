@@ -1,5 +1,12 @@
+<!--
+ * @Description: In User Settings Editon
+ * @Author: your name
+ * @Date: 2019-08-01 21:37:11
+ * @LastEditTime: 2019-08-12 11:12:11
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
-  <div>
+  <div id='only'>
 
     <el-button type="text" @click="dialogVisible1 = true">点击打开 Dialog</el-button>
 
@@ -368,6 +375,7 @@ export default {
       console.log(e.data)
       this.getList()
     }, false);
+    console.log(document.getElementById("only"))
   },
   methods: {
     getList() {

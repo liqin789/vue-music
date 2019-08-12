@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-12 23:40:12
+ * @LastEditTime: 2019-08-12 14:57:59
+ * @LastEditors: Please set LastEditors
+ */
 let NavBar = () => import('@/components/nav-bar/index') //导航
 let NewSong = () => import('@/views/new-song/new-song') //新歌
 let Plist = () => import('@/views/plist/plist') //歌单
@@ -10,7 +17,7 @@ let myCom = () => import('@/views/myCom/myCom') //组件
 let diaTable = () => import('@/views/diaTable/diaTable') //组件
 
 let treeMenu = () => import('@/views/treeMenu/treeMenu') //组件
-
+let betterScroll = () => import('@/views/betterScroll/betterScroll') //组件
 export let routes = [
   {
     path: '/',
@@ -115,6 +122,18 @@ export let routes = [
     components: {
       navbar: NavBar,
       default: treeMenu
+    },
+    meta: {
+      keepAlive: false // 不需要缓存
+    }
+  },
+  {
+    path: '/betterScroll',
+    title: '滑屏',
+    name: 'betterScroll',
+    components: {
+      navbar: NavBar,
+      default: betterScroll
     },
     meta: {
       keepAlive: false // 不需要缓存
