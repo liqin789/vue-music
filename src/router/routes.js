@@ -18,6 +18,8 @@ let diaTable = () => import('@/views/diaTable/diaTable') //组件
 
 let treeMenu = () => import('@/views/treeMenu/treeMenu') //组件
 let betterScroll = () => import('@/views/betterScroll/betterScroll') //组件
+
+let treeTable = () => import('@/views/treeTable/treeTable') //组件
 export let routes = [
   {
     path: '/',
@@ -134,6 +136,18 @@ export let routes = [
     components: {
       navbar: NavBar,
       default: betterScroll
+    },
+    meta: {
+      keepAlive: false // 不需要缓存
+    }
+  },
+  {
+    path: '/treeTable',
+    title: '树形表格',
+    name: 'treeTable',
+    components: {
+      navbar: NavBar,
+      default: treeTable
     },
     meta: {
       keepAlive: false // 不需要缓存

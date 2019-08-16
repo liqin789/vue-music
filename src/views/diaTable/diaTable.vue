@@ -7,21 +7,19 @@
  -->
 <template>
   <div id='only'>
-
-    <el-button type="text" @click="dialogVisible1 = true">点击打开 Dialog</el-button>
-
-<el-dialog
-  title="提示"
-  :visible.sync="dialogVisible1"
-  width="30%"
-  >
-  <span>这是一段信息</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible1 = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
-  </span>
-</el-dialog>
-
+    <el-button type="text"
+               @click="dialogVisible1 = true">点击打开 Dialog弹框的形式</el-button>
+    <el-dialog title="提示"
+               :visible.sync="dialogVisible1"
+               width="30%">
+      <span>这是一段信息</span>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button @click="dialogVisible1 = false">取 消</el-button>
+        <el-button type="primary"
+                   @click="dialogVisible1 = false">确 定</el-button>
+      </span>
+    </el-dialog>
 
     <el-button @click="add">新增用户</el-button>
     <br />
@@ -133,8 +131,8 @@
 export default {
   data() {
     return {
-      title:`<font color="red">2</font>`,
-       dialogVisible1: false,
+      title: `<font color="red">2</font>`,
+      dialogVisible1: false,
       radio: 6,
       tableradio: '',
       multipleSelection: [],
