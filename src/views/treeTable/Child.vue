@@ -9,7 +9,6 @@
 </template>
 <script>
 import Item from "./item"
-console.log(Item)
 export default {
   components: {
     Item

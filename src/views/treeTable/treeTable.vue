@@ -69,9 +69,32 @@ export default {
   // },9000)
 
     this.getList()
-
+    let curName = this.getTeeeName("3-2",this.TreeList)
+    console.log(curName)
   },
   methods:{
+      //需求 树的查找子节点 使用【【递归】】或者【【深度遍历】】的方式 目的是查找当前的元素
+      getTeeeName(id,data){
+          let cloneData = JSON.parse(JSON.stringify(data))
+          // 使用栈进行数据的遍历 ，找元素，判断值，找到则返回，找不到 然后将子节点放进栈中索引增加
+          let stack =[...cloneData] // 栈
+          let index = 0 ;//数组的索引 遍历的索引的值 
+          let current = null;// 当前的元素
+          while(current = stack[index++]){
+              if(current.id == id){
+                break
+              }
+              if(current.children){
+                  //有孩子节点，则进行压栈的操作 数组的合并的操作, 数组的压栈的操作，相当于是将深度的节点，变成扁平形
+                  stack=  stack.concat(current.children)
+              }
+          }
+          return  current
+      },
+
+
+
+
     // async await 获取异步数据 async  await 获得异步数据
     // async  await 获得异步数据 
     // 两个异步函数执行的先后舒顺序
@@ -128,6 +151,40 @@ export default {
     return {
       value:'',
       options:[],
+      TreeList:[
+          {
+            id:"1",
+            name:"1"
+          },
+          {
+            id:"2",
+            name:"2"
+          },
+           {
+            id:"3",
+            name:"3",
+            children:[
+              {
+                id:'3-1',
+                name:'3-1'
+              },
+              {
+                id:'3-2',
+                name:'3-2'
+              },
+
+            ]
+          },{
+            id:'4',
+            name:'4',
+            children:[
+               {
+                id:'4-1',
+                name:'4-1'
+              },
+            ]
+          }
+      ],
       treeData: [{
           label: '一级 1',
           children: [{
