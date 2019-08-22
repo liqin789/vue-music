@@ -7,6 +7,11 @@
  -->
 <template>
   <div id='only'>
+
+    <div style="display:flex;justify-content:space-between">
+      <div>12121</div>
+      <div>565656</div>
+    </div>
     <el-button type="text"
                @click="dialogVisible1 = true">点击打开 Dialog弹框的形式</el-button>
     <el-dialog title="提示"
@@ -374,6 +379,14 @@ export default {
       this.getList()
     }, false);
     console.log(document.getElementById("only"))
+
+    //设置选中可展开
+    this.$refs.tree.setCheckedKeys([74568])
+    //this.$refs.tree.setCheckedKeys([74568])
+    //将数据进行展开的形式
+    //将数据进行展开的形式
+    // 将所有的数据进行展开的形式 
+    this.expandedKeys = [74568]
   },
   methods: {
     getList() {
