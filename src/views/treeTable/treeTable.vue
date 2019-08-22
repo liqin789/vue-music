@@ -31,7 +31,13 @@
     </el-table>
     <hr />
     <h2>实现递归组件</h2>
-    <Child :treeData="treeData"/>
+    <div>
+      <span style="color:red">父组件当前的值</span>{{curNum}}
+    </div>
+    <!-- //父子组件双向数据通信 v-model     sync $emit("updata:msg") -->
+    <!-- <Child :treeData="treeData" v-model="curNum"/> -->
+    <Child :treeData="treeData" :snycTest.sync="curNum"/>
+
       <hr />
       <span>两个接口模拟下拉组件</span>
         <el-select v-model="value" placeholder="请选择">
@@ -73,7 +79,7 @@ export default {
     console.log(curName)
   },
   methods:{
-      //需求 树的查找子节点 使用【【递归】】或者【【深度遍历】】的方式 目的是查找当前的元素
+      //需求 树的查找子节点 使用【【递归】】或者【【广度遍历】】的方式 目的是查找当前的元素
       getTeeeName(id,data){
           let cloneData = JSON.parse(JSON.stringify(data))
           // 使用栈进行数据的遍历 ，找元素，判断值，找到则返回，找不到 然后将子节点放进栈中索引增加
@@ -149,6 +155,7 @@ export default {
     //返回函数，保证是私有的作用域的形式
     //使用children 的时候，当作是树形的组件，可以折叠和展开的形式，当然也可以自己进行数据的组装
     return {
+      curNum:1,
       value:'',
       options:[],
       TreeList:[
