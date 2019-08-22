@@ -26,6 +26,9 @@ export default {
     treeData: {
       type: [Array],
       default: () => []
+    },
+    handleData:{
+      type:Function
     }
   },
   methods: {
@@ -38,8 +41,8 @@ export default {
          _val++
          this.$emit("update:snycTest",_val)
 
-
-
+        // 在子组件中调用父组件的方法 
+         this.handleData()
     },
    
   },

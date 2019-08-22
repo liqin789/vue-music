@@ -34,10 +34,9 @@
     <div>
       <span style="color:red">父组件当前的值</span>{{curNum}}
     </div>
-    <!-- //父子组件双向数据通信 v-model     sync $emit("updata:msg") -->
+    <!-- //父子组件双向数据通信 v-model sync $emit("updata:msg") -->
     <!-- <Child :treeData="treeData" v-model="curNum"/> -->
-    <Child :treeData="treeData" :snycTest.sync="curNum"/>
-
+    <Child :treeData="treeData" :snycTest.sync="curNum" :handleData="handleData"/>
       <hr />
       <span>两个接口模拟下拉组件</span>
         <el-select v-model="value" placeholder="请选择">
@@ -96,6 +95,10 @@ export default {
               }
           }
           return  current
+      },
+
+      handleData(){
+        console.log("父组件中的函数")
       },
 
 
