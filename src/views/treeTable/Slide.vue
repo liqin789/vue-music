@@ -1,13 +1,14 @@
 <template>
     <div class="slide" @mouseenter="enterFn" @mouseleave="leaveFn">
       <div class="con">
-          <slot name="content"></slot>
+          <!-- <slot name="content"></slot> -->
+          <span>{{news.name}}</span>
       </div>
       <el-collapse-transition>
         <div class="show-box" v-show="isShow">
           <div class="transition-box">
-            <el-button  size="mini">修改</el-button>
-            <el-button  size="mini">下载</el-button>
+            <el-button  size="mini" @click="change">修改</el-button>
+            <el-button  size="mini" @click="download">下载</el-button>
           </div>
         </div>
       </el-collapse-transition>
@@ -15,6 +16,11 @@
 </template>
 <script>
 export default {
+  props:{
+      news:{
+        type:[Array,Object]
+      }
+  },
   data(){
     return{
        isShow: false,
@@ -29,6 +35,13 @@ export default {
       leaveFn(){
          this.isShow = false
       },
+      change(){
+        this.$emit("changeItem",this.news)
+      },
+      download(){
+
+      }
+
   }
 }
 </script>

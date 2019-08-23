@@ -54,9 +54,12 @@
   <el-col :span="12">
        <div>
           <h2>动画的效果</h2>
-          <Slide v-for="item in newList" :key="item">
-            <div slot="content">{{item.name}}</div>
-          </Slide>
+          <template v-for="news in newList">
+               <Slide :key="news.name" :news="news" @changeItem="changeItem">
+                    <!-- <div slot="content">{{news.name}}</div> -->
+              </Slide>
+          </template>
+       
        </div>
   </el-col>
 </el-row>
@@ -91,6 +94,10 @@ export default {
     console.log(curName)
   },
   methods:{
+     //改变滑块的内容
+      changeItem(val){
+          console.log("父组件，获得滑块内容", val)
+      },
       //需求 树的查找子节点 使用【【递归】】或者【【广度遍历】】的方式 目的是查找当前的元素
       getTeeeName(id,data){
           let cloneData = JSON.parse(JSON.stringify(data))
