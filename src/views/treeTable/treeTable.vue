@@ -1,5 +1,7 @@
 <template>
-  <div class="treeTable">
+<el-row>
+  <el-col :span="12">
+      <div class="treeTable">
     <el-table :data="tableData"
               style="width: 100%;margin-bottom: 20px;"
               row-key="id"
@@ -48,21 +50,32 @@
         </el-option>
       </el-select>
   </div>
+  </el-col>
+  <el-col :span="12">
+       <div>
+          <h2>动画的效果</h2>
+          <Slide v-for="item in newList" :key="item">
+            <div slot="content">{{item.name}}</div>
+          </Slide>
+       </div>
+  </el-col>
+</el-row>
+  
 </template>  
 <script>
 import Child from "./Child"
+import Slide from "./Slide"
 export default {
   components: {
-    Child
+    Child,
+    Slide
   },
    mounted(){
     //this.$el 获取的是跟组件实例
     // this.
     // console.log("el-dom",this.$el)
 
-    // await 会把数据进行返回  await 会把数据返回
-    
-
+  // await 会把数据进行返回  await 会把数据返回
   // setTimeout(()=>{
   //   console.log("1")
   // },8000)
@@ -152,12 +165,26 @@ export default {
           })
       },
 
+     
+
 
   },
   data() {
     //返回函数，保证是私有的作用域的形式
     //使用children 的时候，当作是树形的组件，可以折叠和展开的形式，当然也可以自己进行数据的组装
     return {
+      newList:[
+        {
+          name:'新闻1',
+          date:'2019-09-09'
+        },{
+          name:'新闻2',
+          date:'2018-08-08'
+        },{
+          name:'新闻业务3',
+          date:'2017-07-08'
+        }
+      ],
       curNum:1,
       value:'',
       options:[],
