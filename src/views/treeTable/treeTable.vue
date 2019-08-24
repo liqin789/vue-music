@@ -59,9 +59,11 @@
                     <!-- <div slot="content">{{news.name}}</div> -->
               </Slide>
           </template>
-       
        </div>
   </el-col>
+  <div>
+    <span>过滤器{{ v | filterState("a") }}</span>
+  </div>
 </el-row>
   
 </template>  
@@ -72,6 +74,9 @@ export default {
   components: {
     Child,
     Slide
+  },
+  filters:{
+   
   },
    mounted(){
     //this.$el 获取的是跟组件实例
@@ -180,6 +185,7 @@ export default {
     //返回函数，保证是私有的作用域的形式
     //使用children 的时候，当作是树形的组件，可以折叠和展开的形式，当然也可以自己进行数据的组装
     return {
+      v:'2',
       newList:[
         {
           name:'新闻1',

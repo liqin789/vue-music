@@ -56,6 +56,27 @@ for (let attr in _directive) {
 }
 Vue.config.productionTip = false
 
+
+ Vue.filter('filterState', function (value,arg) {
+     //使用过滤器进行传递参数  第一个第二个参数
+     console.log("arg",arg)
+      const state=[
+        {
+          label:'a',value:'1'
+        },
+        {
+          label:'b',value:'2'
+        },
+        {
+          label:'c',value:'3'
+        }
+      ]
+      let data = state.find((item)=>{
+        return item.value == value
+      })
+      return data.label
+  })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
