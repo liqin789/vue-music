@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+// 组件自己的定位
 export default {
   props:{
       news:{

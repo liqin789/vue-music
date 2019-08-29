@@ -1,10 +1,10 @@
 <template>
   <div>
-      <!-- <span style="color:red">子组件当前的值</span>{{value}} -->
-      <span style="color:red">子组件当前的值</span>{{snycTest}}
-      <el-button @click="changeVal">Change</el-button> 
-    <div >
-        <Item :treeData="treeData"/>
+   
+
+    <div>
+       当前的值:{{this.$store.state.count}}
+       <el-button @click="changeV">改变</el-button>  
     </div>
 
   </div>
@@ -31,7 +31,15 @@ export default {
       type:Function
     }
   },
+  mounted(){
+     console.log("son mounted")
+  },
   methods: {
+     changeV(){
+       // vux 相当于是数据仓库 vuex 相当于是数据的仓库 保证里面的数据源的统一性 一处更改 其他的地方都会更改
+       // 可以实现父子组件的双向的数据的绑定 
+      this.$store.commit("updateV",this.$store.state.count +=1)
+    },
     changeVal(){// 子组件更改父组件的数据，使用emit的形式 父子组件双向通信  v-model value this.$emit(input)
         // let _val = this.value;; // 父子组件双向通信
         // _val++

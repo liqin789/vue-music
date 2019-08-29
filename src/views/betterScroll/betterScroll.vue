@@ -6,11 +6,30 @@
  * @LastEditors: Please set LastEditors
  -->
 <template>
-  <section class="box">
+  <section class="box" >
     <div class="head">
       head
     </div>
-    <div class="content">
+
+    <div>
+      <h2>动态切换 组件是否被缓存起来 keep-alive组件的缓存 使用key 将缓存组件</h2>
+      <el-button  @click="switchFn" type="primary">切换组件最小化的渲染</el-button>
+      {{input}} --- {{input2}}
+
+      <el-input type="text" v-model="input"  v-if="show" :key="1"></el-input>
+      <el-input type="password" v-model="input2" v-else :key="2"></el-input>
+    </div>
+
+    <div>
+        <h2>表格切换</h2>
+         <el-button  @click="switchFn2" type="primary">切换组件</el-button>
+         <keep-alive>
+            <component v-bind:is="currentTabComponent"></component>
+        </keep-alive>
+
+
+    </div>
+    <div class="content" style="display:none">
       <div class="left"
            ref="left">
         <ul>
@@ -44,9 +63,37 @@
  
 <script>
 import BScroll from 'better-scroll'
+var ComponentA = {
+  name:'component-a',
+  data: function () {
+    return {
+      count: 52
+    }
+  },
+  template:`<div>
+    当前的数字是{{count}}
+  </div>`
+ }
+var ComponentB = {
+  name:'component-b',
+  data: function () {
+    return {
+      count: 88
+    }
+  },
+  template:`<div>
+    当前的数字是{{count}}
+  </div>`
+ }
 export default {
+  components:{
+    // 组件的引入 动态组件和异步组件的形式
+    'component-a': ComponentA,
+    'component-b': ComponentB
+  },
   data() {
     return {
+      show:true,
       left: ['a', 'b', 'c', 'd', 'e', 'f'],
       right: [
         {
@@ -76,10 +123,24 @@ export default {
       ],
       listHeight: [],
       scrollY: 0, //实时获取当前y轴的高度
-      clickEvent: false
+      clickEvent: false,
+      input:'',
+      input2:"",
+      currentTabComponent:'component-a',//动态组件的默认值的形式
+      // 书写动态组件的形式 动态组件 keepalive 用于缓存
     }
   },
   methods: {
+    switchFn(){
+      //切换的时候将原来的值 进行清空操作 切换时候将原来的值进行清空的操作
+      this.input=""
+      this.input2=""
+      this.show = !this.show
+    },
+    switchFn2(){
+        // 引入两个组件 然后切换的时候，动态改变切换后的值 
+        this.currentTabComponent =  this.currentTabComponent == "component-a" ? "component-b" :"component-a"
+    },
     _initScroll() {
       // better-scroll的实现原理是监听了touchStart,touchend事件，所以阻止了默认的事件
       //（preventDefault）
@@ -129,12 +190,74 @@ export default {
     }
   },
   mounted() {
+    //在二叉树中查找id为某个值的元素  可以使用广度优先遍历进行搜索  二叉树的遍历 
+    // 广度优先搜索
+    // 查找是否有孩子节点 有则放进去
+    // 条件渲染 条件渲染 动态组件的使用 原生js的学习
+    let tree = [
+       {
+         id:1,
+         name:1,
+         child:[
+            {
+              id:2,
+              name:2,
+              child:[
+                {
+                  id:4,
+                  name:4,
+                },
+                 {
+                  id:5,
+                  name:5,
+                }
+              ]
+            },
+             {
+              id:3,
+              name:3,
+               child:[
+                {
+                  id:6,
+                  name:6,
+                },
+                 {
+                  id:7,
+                  name:7,
+                }
+              ]
+            }
+         ]
+       }
+    ]
+
+    function guang(data,id){// 广度遍历
+        let node=[...data];//存放所有的节点 
+        // 广度优先遍历 数组的push  数组的push操作
+        for(let i=0;i<node.length;i++){
+                if(node[i].id == id){
+                    return node[i]//查找的元素进行返回
+                    break;// while循环的结束条件 break 
+                }else if(node[i].child){
+                  //... 展开运算符
+                    node.push(...node[i].child)
+                }
+                // 元素的遍历的操作
+         }
+        
+        return null
+    }
+
+    console.log("rrrggg",guang(tree,7))
+
+
+
     this.$nextTick(() => {
       this._initScroll()
       this._getHeight()
     })
     // vue-cli 中模块化编程，每页都是一个模块，切换时候，vue中切换时候，组件销毁了  单元测试
-    console.log("only",document.getElementById("only"))
+    ///console.log("only",document.getElementById("only"))
   },
   computed: {
     currentIndex() {
