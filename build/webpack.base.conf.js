@@ -3,7 +3,10 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+// 骨架屏方案
 const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
+// 预渲染插件 利于sec
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
 const Version = new Date().getTime()
 
 function resolve (dir) {
@@ -16,13 +19,20 @@ module.exports = {
     app: './src/main.js'
   },
   plugins:[
+    // 骨架屏方案
     new SkeletonWebpackPlugin({
       webpackConfig: {
           entry: {
               app: path.resolve('./src/entry.js')
           }
       }
-  })
+    }),
+    new PrerenderSpaPlugin({
+      //编译后html需要存放的路径
+      staticDir: path.join(__dirname, '../dist'),
+      // 列出需要预渲染的路由
+      routes: ['/', '/treeTable']
+    })
   ],
   output: {
     path: config.build.assetsRoot,
