@@ -3,19 +3,27 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
 const Version = new Date().getTime()
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
   },
+  plugins:[
+    new SkeletonWebpackPlugin({
+      webpackConfig: {
+          entry: {
+              app: path.resolve('./src/entry.js')
+          }
+      }
+  })
+  ],
   output: {
     path: config.build.assetsRoot,
     // filename: utils.assetsPath('js/[name].[chunkhash].' + Version + '.js'),
