@@ -5,7 +5,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 // 骨架屏方案
 const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
-// 预渲染插件 利于sec
+// 预渲染插件 利于seo  将真实的dom 节点显示到打包之后的index页面, 
 const PrerenderSpaPlugin = require('prerender-spa-plugin')
 const Version = new Date().getTime()
 
