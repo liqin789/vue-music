@@ -42,14 +42,24 @@
 <script>
 import Child from "./Child"
 import Slide from "./Slide"
-import Detail  from "./Detail"
+// import Detail  from "./Detail"
 import {myMix} from "./mixin"
+import Vue from "vue"
+
+const Detail = Vue.component('Detail', function (resolve) {
+    setTimeout(function () {
+        require(['./Detail.vue'], resolve)
+    }, 3000);
+});
+
 export default {
   mixins:[myMix],
   components: {
     Child,
     Slide,
-    Detail,//弹框组件 可以写自定义的插槽的形式 
+    Detail,
+    // Detail,//弹框组件 可以写自定义的插槽的形式  代码优化时候改写成，弹框内容不多时候有可能不会点击 
+   //'Detail': () => import('./Detail')
   },
   filters: {
 

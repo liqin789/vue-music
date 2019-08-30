@@ -12,7 +12,7 @@
          <li v-for="item in list" :key="item">{{item}}</li>
        </ul>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button @click="dialogVisible = false">取 消1</el-button>
           <el-button type="primary" @click="submit">确 定</el-button>
         </span>
       </el-dialog>
@@ -39,6 +39,9 @@ export default {
     return{
         dialogVisible:false
     }
+  },
+  mounted(){
+      console.log("detail loading")
   },
   methods:{
     openDialog(){
