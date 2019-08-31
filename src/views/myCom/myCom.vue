@@ -43,7 +43,8 @@ export default {
         currentPage: 0, // pdf文件页码
         pageCount: 0, // pdf文件总页数
         fileType: 'pdf', // 文件类型
-　　　　　src: 'http://localhost:8888/media/logo.pdf' // pdf文件地址
+// 　　　　　src: 'http://localhost:8888/media/logo.pdf' // pdf文件地址
+　　　　　src: '' // pdf文件地址
         }
     },
    created(){
