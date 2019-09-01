@@ -22,6 +22,10 @@ export default {
       type: [Object, Array]
     }
   },
+  mounted(){
+    //动态组件的keep-alive
+    console.log("组件2加载")
+  },
   data() {
     return {
       value: ''

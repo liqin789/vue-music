@@ -34,6 +34,15 @@
           <el-button type="success" slot="title">说明</el-button>
         </Detail>
 
+        <hr/>
+        <div>
+          <h2>动态组件</h2>
+          <el-button @click="switchTab">动态组件</el-button>
+          <component :is="curTable" :tableData="tableData"></component>
+        </div>
+
+
+
       </div>
     </div>
   </div>
@@ -46,6 +55,9 @@ import Slide from "./Slide"
 import {myMix} from "./mixin"
 import Vue from "vue"
 
+import listTable from "./listTable"
+import gridTable from "./gridTable"
+
 const Detail = Vue.component('Detail', function (resolve) {
     setTimeout(function () {
         require(['./Detail.vue'], resolve)
@@ -55,6 +67,8 @@ const Detail = Vue.component('Detail', function (resolve) {
 export default {
   mixins:[myMix],
   components: {
+    listTable,
+    gridTable,
     Child,
     Slide,
     Detail,
@@ -274,6 +288,16 @@ let menuList = [
     }
   },
   methods: {
+    //切换动态组件
+    switchTab(){
+      //根据索引进行切换
+      let arr =["listTable","gridTable"]
+      let index = arr.indexOf(this.curTable)
+
+      this.curTable = arr[index+1]
+
+
+    },
     changeV(){
       // this.$store.commit("updateV",this.$store.state.count++)
       this.$store.commit("updateV",this.$store.state.count +=1)
@@ -380,6 +404,7 @@ let menuList = [
     //返回函数，保证是私有的作用域的形式
     //使用children 的时候，当作是树形的组件，可以折叠和展开的形式，当然也可以自己进行数据的组装
     return {
+      curTable:"listTable",
       tableHeight:50,
        tableData: [
          {

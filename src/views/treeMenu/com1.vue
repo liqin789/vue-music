@@ -19,6 +19,9 @@ export default {
       type: [Object, Array]
     }
   },
+  mounted(){
+    console.log("组件1加载")
+  },
   data() {
     return {
       value: ''

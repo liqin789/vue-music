@@ -84,9 +84,9 @@ export default {
     };
   },
   methods: {
-    // 切换动态组件
+    // 切换动态组件 动态组件可以应用到选项卡中，进行切换选项卡的形式
     changeCom() {
-      console.log(this.radio)
+     // console.log(this.radio)
       this.currentTabComponent = this.radio
     },
     refshParent() {

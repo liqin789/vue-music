@@ -20,6 +20,8 @@ let treeMenu = () => import('@/views/treeMenu/treeMenu') //组件
 let betterScroll = () => import('@/views/betterScroll/betterScroll') //组件
 
 let treeTable = () => import('@/views/treeTable/treeTable') //组件
+let infinite = () => import('@/views/infinite/infinite') //无线滚动表格
+
 export let routes = [
   {
     path: '/',
@@ -148,6 +150,18 @@ export let routes = [
     components: {
       navbar: NavBar,
       default: treeTable
+    },
+    meta: {
+      keepAlive: false // 不需要缓存
+    }
+  },
+  {
+    path: '/infinite',
+    title: '滚动列表',
+    name: 'infinite',
+    components: {
+      navbar: NavBar,
+      default: infinite
     },
     meta: {
       keepAlive: false // 不需要缓存
