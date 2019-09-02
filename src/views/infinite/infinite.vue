@@ -24,19 +24,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
+          <tr v-for="(item,index) in buttonTable"
+              :key="index">
+            <td>{{item.num}}</td>
             <td>
-              <el-checkbox v-model="checked1"></el-checkbox>
+              <el-checkbox v-model="item.inheritCheck"></el-checkbox>
             </td>
-            <td>使用</td>
+            <td>{{item.classify}}</td>
             <td>
-              <btnCheckboxs :options="firstOptions"
-                            :selOptions="firstSelOptions"
+              <btnCheckboxs :options="item.Options"
+                            :selOptions="item.SelOptions"
                             @getOptionsVal="getOptionsVal"></btnCheckboxs>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>2</td>
             <td>
               <el-checkbox v-model="checked2"></el-checkbox>
@@ -47,7 +48,7 @@
                             :selOptions="secondSelOptions"
                             @getOptionsVal="getOptionsVal"></btnCheckboxs>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -67,10 +68,26 @@ export default {
       checked2: '',
       count: 10,
       loading: false,
-      firstSelOptions: ['审核', '送审稿'],
-      firstOptions: ['签发', '撤稿（未定）', '审核', '送审稿', '改稿', '审定（1）'],
-      secondSelOptions: ['刷新', '分享'],
-      secondOptions: ["刷新", "预览 ", "关闭", "分享", "打印"],
+      buttonTable: [
+        {
+          num: 1,//序号
+          inheritCheck: "",//继承
+          classify: '使用',//分类
+          SelOptions: ['审核', '送审稿'],//选中值
+          Options: ['签发', '撤稿（未定）', '审核', '送审稿', '改稿', '审定（1）'],//所有值
+        },
+        {
+          num: 2,
+          inheritCheck: '',
+          classify: '新建',
+          SelOptions: ['刷新', '分享'],
+          Options: ["刷新", "预览 ", "关闭", "分享", "打印"],
+        }
+      ],
+      // firstSelOptions: ['审核', '送审稿'],
+      // firstOptions: ['签发', '撤稿（未定）', '审核', '送审稿', '改稿', '审定（1）'],
+      // secondSelOptions: ['刷新', '分享'],
+      // secondOptions: ["刷新", "预览 ", "关闭", "分享", "打印"],
 
     }
   },
