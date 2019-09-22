@@ -58,10 +58,24 @@
         </ul>
       </div>
     </div>
+    <hr/>
+    <div>
+
+      <draggable v-model="myArray">
+            <div v-for="element in myArray" class="curmove" :key="element.id" >
+                <span style="cursor:move">
+                    {{element.name}}--{{element.order}}
+                </span>
+                <i @click="delSelBtn(element)" class="el-icon-circle-close point"></i>
+            </div>
+      </draggable>
+
+    </div>
   </section>
 </template>
  
 <script>
+import draggable from 'vuedraggable'
 import BScroll from 'better-scroll'
 var ComponentA = {
   name:'component-a',
@@ -89,10 +103,53 @@ export default {
   components:{
     // 组件的引入 动态组件和异步组件的形式
     'component-a': ComponentA,
-    'component-b': ComponentB
+    'component-b': ComponentB,
+    draggable
   },
   data() {
     return {
+      myArray:[
+            {
+              "name": "vue.draggable",
+              "order": 1,
+              "fixed": true
+            },
+            {
+              "name": "draggable",
+              "order": 2,
+              "fixed": true
+            },
+            {
+              "name": "component",
+              "order": 3,
+              "fixed": false
+            },
+            {
+              "name": "for",
+              "order": 4,
+              "fixed": false
+            },
+            {
+              "name": "vue.js 2.0",
+              "order": 5,
+              "fixed": false
+            },
+            {
+              "name": "based",
+              "order": 6,
+              "fixed": false
+            },
+            {
+              "name": "on",
+              "order": 7,
+              "fixed": false
+            },
+            {
+              "name": "Sortablejs",
+              "order": 8,
+              "fixed": false
+            }
+          ],
       show:true,
       left: ['a', 'b', 'c', 'd', 'e', 'f'],
       right: [
@@ -131,6 +188,12 @@ export default {
     }
   },
   methods: {
+    delSelBtn(sel){
+      let _index = this.myArray.indexOf(sel)
+      this.myArray.splice(_index,1)
+      //删除选中的值
+      console.log("myArray", this.myArray)
+    },
     switchFn(){
       //切换的时候将原来的值 进行清空操作 切换时候将原来的值进行清空的操作
       this.input=""
@@ -277,6 +340,9 @@ export default {
 }
 </script>
 <style scoped>
+.point{
+  cursor: pointer;
+}
 .content {
   width: 100%;
   display: flex;
@@ -320,5 +386,11 @@ export default {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+.curmove{
+  border:1px solid #ddd;
+  display: inline-block;
+  padding: 5px 10px;
+
 }
 </style>

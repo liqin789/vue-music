@@ -38,7 +38,8 @@
         <div>
           <h2>动态组件</h2>
           <el-button @click="switchTab">动态组件</el-button>
-          <component :is="curTable" :tableData="tableData"></component>
+          <component :is="curTable" :tableData="tableData">
+          </component>
         </div>
 
 
@@ -51,18 +52,18 @@
 <script>
 import Child from "./Child"
 import Slide from "./Slide"
-// import Detail  from "./Detail"
+import Detail  from "./Detail"
 import {myMix} from "./mixin"
 import Vue from "vue"
 
 import listTable from "./listTable"
 import gridTable from "./gridTable"
 
-const Detail = Vue.component('Detail', function (resolve) {
-    setTimeout(function () {
-        require(['./Detail.vue'], resolve)
-    }, 3000);
-});
+// const Detail = Vue.component('Detail', function (resolve) {
+//     setTimeout(function () {
+//         require(['./Detail.vue'], resolve)
+//     }, 3000);
+// });
 
 export default {
   mixins:[myMix],
@@ -71,9 +72,9 @@ export default {
     gridTable,
     Child,
     Slide,
-    Detail,
+    // Detail,
     // Detail,//弹框组件 可以写自定义的插槽的形式  代码优化时候改写成，弹框内容不多时候有可能不会点击 
-   //'Detail': () => import('./Detail')
+   'Detail': () => import('./Detail')
   },
   filters: {
 

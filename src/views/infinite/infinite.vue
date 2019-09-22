@@ -95,8 +95,18 @@
             <span class="share-btns">序号</span>
             <span class="sharing">继承</span>
           </div>
-          <div>
 
+
+          <div>
+            <vtable :tableData="tableData">
+               <el-table-column
+                    slot="date"
+                    fixed
+                    prop="date"
+                    label="日期1"
+                    width="180">
+                </el-table-column>
+            </vtable>
           </div>
 
         </div>
@@ -106,9 +116,12 @@
 </template>
 <script>
 import btnCheckboxs from "./btnCheckboxs"
+import vtable from "./vtable"
+import axios from "axios"
 export default {
   components: {
-    btnCheckboxs
+    btnCheckboxs,
+    vtable
   },
   data() {
     const data = [{
@@ -186,6 +199,23 @@ export default {
 
 
     return {
+      tableData: [{
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
+          }, {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1517 弄'
+          }, {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄'
+          }, {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1516 弄'
+          }],
       checkAll: false,
       treeChecked1: false,
       treeData: JSON.parse(JSON.stringify(data)),
@@ -253,6 +283,16 @@ export default {
       const index = children.findIndex(d => d.id === data.id);
       children.splice(index, 1);
     },
+  },
+  mounted(){
+    axios.get('http://172.22.26.165:8080/unisetup1/productType/list')
+  .then(function (response) {
+    console.log("productType",response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+   
   },
   computed: {
     //计算属性是一个函数 返回的值是计算属性的的值的形式我们在哪里呢  使用计算属性 实时进行值的获取
